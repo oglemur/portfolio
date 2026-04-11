@@ -53,7 +53,7 @@ function Highlight({
       {label}
       <AnimatePresence>
         {visible && (
-          <div
+          <span
             className="pointer-events-none"
             style={{
               position: "absolute",
@@ -63,17 +63,20 @@ function Highlight({
               zIndex: 100,
               minWidth: 180,
               maxWidth: 260,
+              display: "block",
             }}
           >
-            <motion.div
+            <motion.span
               initial={{ opacity: 0, y: 6, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 6, scale: 0.97 }}
               transition={{ duration: 0.15 }}
+              style={{ display: "block" }}
             >
               {/* Card */}
-              <div
+              <span
                 style={{
+                  display: "block",
                   background: "rgba(20,18,16,0.97)",
                   backdropFilter: "blur(14px)",
                   border: "1px solid rgba(255,251,240,0.1)",
@@ -83,9 +86,9 @@ function Highlight({
                 }}
               >
                 {tooltip}
-              </div>
+              </span>
               {/* Arrow */}
-              <div
+              <span
                 style={{
                   position: "absolute",
                   bottom: -4,
@@ -96,10 +99,11 @@ function Highlight({
                   background: "rgba(20,18,16,0.97)",
                   borderRight: "1px solid rgba(255,251,240,0.1)",
                   borderBottom: "1px solid rgba(255,251,240,0.1)",
+                  display: "block",
                 }}
               />
-            </motion.div>
-          </div>
+            </motion.span>
+          </span>
         )}
       </AnimatePresence>
     </span>
