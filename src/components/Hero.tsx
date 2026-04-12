@@ -193,6 +193,18 @@ export default function Hero() {
   return (
     <section className="relative h-screen" style={{ overflow: "visible" }}>
 
+      {/* Left gradient — stays full-bleed */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to right, #0B0A08 26%, rgba(11,10,8,0.78) 50%, rgba(11,10,8,0.08) 74%, transparent 92%)",
+        }}
+      />
+
+      {/* Constrained layout container */}
+      <div className="absolute inset-0 mx-auto w-full" style={{ maxWidth: 1600 }}>
+
       {/* Globe — large, vertically centered, bleeds top and bottom */}
       <div
         ref={globeContainerRef}
@@ -248,15 +260,6 @@ export default function Hero() {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Left gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, #0B0A08 26%, rgba(11,10,8,0.78) 50%, rgba(11,10,8,0.08) 74%, transparent 92%)",
-        }}
-      />
 
       {/* Main text */}
       <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 pt-20 z-10 max-w-3xl">
@@ -346,6 +349,8 @@ export default function Hero() {
           </MagneticButton>
         </div>
       </div>
+
+      </div>{/* end constrained layout container */}
     </section>
   );
 }
