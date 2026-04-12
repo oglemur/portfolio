@@ -12,7 +12,7 @@ const projects = [
     year: "2025",
     description:
       "Turned a legacy SQL script into a cloud-native SaaS product. 0→1 ownership across design, engineering, and stakeholders. 97% efficiency gain.",
-    metrics: ["97% efficiency gain", "0→1 ownership", "Fortune 500 clients"],
+    metrics: ["Data", "0→1 development", "Fortune 500 clients"],
     accentRgb: "245,158,11",
     slug: "energy-star-benchmarking",
   },
@@ -23,8 +23,8 @@ const projects = [
     company: "Honda Research × CMU",
     year: "2024",
     description:
-      "LLM-powered internal research assistant built for Honda researchers to conduct high-quality field tests and improve frontier research accuracy.",
-    metrics: ["LLM-powered", "Field research", "CMU Capstone"],
+      "LLM-powered research assistant built for Honda scientists to conduct high-quality field tests and improve frontier research efficiency.",
+    metrics: ["LLMs", "Expert Users", "CMU Capstone"],
     accentRgb: "99,179,237",
     slug: "aether",
   },
@@ -35,7 +35,7 @@ const projects = [
     company: "Interaction Design",
     year: "2024",
     description:
-      "Forward-thinking automotive UX concept designed at CMU. Explored future in-vehicle interaction paradigms for Ford.",
+      "Forward-thinking automotive UX concept designed at CMU. Pioneered future in-vehicle interaction paradigms for Ford.",
     metrics: ["Automotive UX", "Future concepts", "Ford"],
     accentRgb: "167,139,250",
     slug: "ford-invision",

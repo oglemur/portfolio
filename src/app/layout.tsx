@@ -26,7 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
+      <body className="min-h-screen">
+        {children}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script
@@ -43,8 +44,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
-      </head>
-      <body className="min-h-screen">{children}</body>
+      </body>
     </html>
   );
 }
