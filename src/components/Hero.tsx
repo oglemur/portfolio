@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 
 const CITIES = [
-  { name: "Boston",        country: "USA",          location: [42.36,  -71.06] as [number, number], blurb: "Smartest city in the room. TD Garden is my backyard. Love the winters, hate the driving." },
+  { name: "Boston",        country: "USA",          location: [42.36,  -71.06] as [number, number], blurb: "Smartest city in the room. Love the winters, hate the driving." },
   { name: "Riyadh",        country: "Saudi Arabia", location: [24.71,   46.68] as [number, number], blurb: "Birthplace. Always gets a raised eyebrow. I just roll with it." },
   { name: "Jeddah",        country: "Saudi Arabia", location: [21.49,   39.19] as [number, number], blurb: "Learned to swim in the Red Sea. Still one of my best memories." },
   { name: "Antananarivo",  country: "Madagascar",   location: [-18.91,  47.54] as [number, number], blurb: "Not the movie. Rare wildlife, stunning nature, and a culture built on 'mora mora' — take it slow." },
