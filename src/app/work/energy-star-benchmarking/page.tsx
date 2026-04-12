@@ -86,6 +86,23 @@ export default function EnergyStarBenchmarking() {
           </p>
         </motion.div>
 
+        {/* Lead insight */}
+        <motion.div {...fade(0.08)} className="mb-16">
+          <blockquote
+            className="text-2xl sm:text-3xl font-semibold leading-snug"
+            style={{
+              color: "var(--text)",
+              borderLeft: "2px solid var(--accent)",
+              paddingLeft: "1.5rem",
+            }}
+          >
+            A better product doesn&apos;t sell itself to its own users.
+          </blockquote>
+          <p className="text-sm leading-relaxed mt-5 max-w-2xl" style={{ color: "var(--text-muted)", paddingLeft: "1.5rem" }}>
+            Phase 1 launched just before annual reporting season — the analysts&apos; busiest time of year. They didn&apos;t use it. Not because it was bad. Because they were underwater, and switching tools mid-sprint felt riskier than grinding through the old process one more time. That taught me something I hadn&apos;t learned in any design program.
+          </p>
+        </motion.div>
+
         {/* Metadata */}
         <motion.div
           {...fade(0.1)}

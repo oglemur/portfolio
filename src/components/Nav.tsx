@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
   { label: "Contact", href: "mailto:christofkopera@gmail.com" },
 ];
 
