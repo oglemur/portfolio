@@ -263,6 +263,7 @@ export default function Hero() {
 
       {/* Main text */}
       <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 pt-20 z-10 max-w-3xl">
+      <div className="hero-text-glass">
 
         {/* Language cycling */}
         <div className="mb-10">
@@ -348,6 +349,7 @@ export default function Hero() {
             The full story
           </MagneticButton>
         </div>
+      </div>{/* end hero-text-glass */}
       </div>
 
       </div>{/* end constrained layout container */}

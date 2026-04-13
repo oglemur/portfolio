@@ -103,6 +103,27 @@ body {
   scroll-margin-top: 80px;
 }
 
+/* Hero text glass — visible on mobile, transparent on desktop */
+.hero-text-glass {
+  background: rgba(11, 10, 8, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 251, 240, 0.06);
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+@media (min-width: 640px) {
+  .hero-text-glass {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
