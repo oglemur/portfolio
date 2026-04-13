@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CaseStudyNav from "@/components/CaseStudyNav";
+import PasswordGate from "@/components/PasswordGate";
 
 const SECTIONS = [
   { id: "brief",       label: "Brief" },
@@ -56,6 +57,7 @@ const KEY_MOMENTS = [
 
 export default function EnergyStarBenchmarking() {
   return (
+    <PasswordGate>
     <>
       <Nav />
       <CaseStudyNav sections={SECTIONS} />
@@ -360,5 +362,6 @@ export default function EnergyStarBenchmarking() {
       </main>
       <Footer />
     </>
+    </PasswordGate>
   );
 }

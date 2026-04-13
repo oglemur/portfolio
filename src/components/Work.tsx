@@ -3,7 +3,18 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 
-const projects = [
+const projects: {
+  index: string;
+  tag: string;
+  title: string;
+  company: string;
+  year: string;
+  description: string;
+  metrics: string[];
+  accentRgb: string;
+  slug: string;
+  locked?: boolean;
+}[] = [
   {
     index: "01",
     tag: "Product Management",
@@ -15,6 +26,7 @@ const projects = [
     metrics: ["Data", "0→1 development", "Fortune 500 clients"],
     accentRgb: "245,158,11",
     slug: "energy-star-benchmarking",
+    locked: true,
   },
   {
     index: "02",
@@ -181,6 +193,22 @@ export default function Work() {
                       </p>
 
                       <div className="flex gap-2 flex-wrap">
+                        {project.locked && (
+                          <span
+                            className="text-xs font-mono flex items-center gap-1.5 px-3 py-1 rounded-full"
+                            style={{
+                              border: "1px solid rgba(255,251,240,0.09)",
+                              color: "rgba(255,251,240,0.28)",
+                              background: "rgba(255,251,240,0.03)",
+                            }}
+                          >
+                            <svg width="9" height="11" viewBox="0 0 9 11" fill="none" aria-hidden>
+                              <rect x="1" y="4.5" width="7" height="6" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+                              <path d="M2.5 4.5V3a2 2 0 0 1 4 0v1.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round"/>
+                            </svg>
+                            Locked
+                          </span>
+                        )}
                         {project.metrics.map((m) => (
                           <span
                             key={m}
