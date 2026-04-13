@@ -98,6 +98,14 @@ body {
   50% { opacity: 0.4; }
 }
 
+@keyframes mbta-train {
+  0%   { left: 0; opacity: 1; }
+  80%  { left: calc(100% - 8px); opacity: 1; }
+  90%  { left: calc(100% - 8px); opacity: 0; }
+  91%  { left: 0; opacity: 0; }
+  100% { left: 0; opacity: 1; }
+}
+
 /* Offset anchor scroll targets below the fixed nav */
 #work, #about, #projects {
   scroll-margin-top: 80px;
@@ -110,12 +118,7 @@ body {
 
 /* Mobile stacked hero layout */
 @media (max-width: 639px) {
-  /* Clip globe left/right overflow cleanly */
-  .hero-section {
-    overflow: hidden;
-  }
-
-  /* Globe: square aspect ratio so it stays round, centered at top, zoomed */
+  /* Globe: square so it stays round, centered at top, zoomed */
   .hero-globe-container {
     top: 0 !important;
     right: auto !important;
@@ -125,27 +128,26 @@ body {
     height: 124vw !important;
   }
 
-  /* Text: anchored to bottom half, no overflow into next section */
+  /* Text: starts below the globe zone, full height remaining, no clipping */
   .hero-text-container {
-    top: 44% !important;
+    top: 38% !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     max-width: 100% !important;
     justify-content: flex-start !important;
     padding-top: 20px !important;
-    overflow: hidden;
   }
 
-  /* Gradient: top-to-bottom fade, transparent over globe → solid dark for text */
+  /* Gradient: fades globe into dark, solid from ~50% down — matches bg so no visible seam */
   .hero-gradient {
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      transparent 24%,
-      rgba(11, 10, 8, 0.5) 36%,
-      rgba(11, 10, 8, 0.92) 45%,
-      #0B0A08 52%
+      transparent 22%,
+      rgba(11, 10, 8, 0.5) 34%,
+      rgba(11, 10, 8, 0.92) 43%,
+      #0B0A08 50%
     ) !important;
   }
 }

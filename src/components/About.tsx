@@ -197,17 +197,9 @@ export default function About() {
             </Highlight>
             , build AI tools on weekends, and speak five languages — rarely in the same sentence.
           </p>
-          <p className="text-sm leading-relaxed mb-8" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
             PM at ENGIE Impact, working with millions of energy data points for Fortune 500 clients.
-
           </p>
-          <Link
-            href="/about"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: "var(--accent)" }}
-          >
-            The full story →
-          </Link>
         </motion.div>
 
         {/* Stats */}
@@ -234,6 +226,23 @@ export default function About() {
           ))}
         </motion.div>
       </div>
+
+      {/* Full story CTA — below both columns so it sits after the cards on mobile */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
+        className="mb-28 -mt-20"
+      >
+        <Link
+          href="/about"
+          className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
+          style={{ color: "var(--accent)" }}
+        >
+          The full story →
+        </Link>
+      </motion.div>
 
       {/* Side Projects */}
       <motion.div

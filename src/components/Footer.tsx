@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 export default function Footer() {
-  const [showEaster, setShowEaster] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
     <footer className="py-16 px-8 max-w-5xl mx-auto">
@@ -46,35 +46,93 @@ export default function Footer() {
 
       {/* Fourth wall credit */}
       <div className="mt-10 text-center">
-        <button
-          onClick={() => setShowEaster(!showEaster)}
-          className="text-xs font-mono transition-colors cursor-pointer"
-          style={{ color: "var(--text-muted)" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
-        >
-          Designed by Christof.{" "}
-          <span style={{ color: "var(--accent)" }}>Built with Claude Code.</span>
-        </button>
+        <div className="inline-flex flex-col items-center gap-2">
 
-        {showEaster && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 mx-auto max-w-sm rounded-xl p-4 text-left font-mono text-xs"
+          {/* Credit text with hover tooltip above */}
+          <div
+            className="relative inline-block"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <button
+              className="text-xs font-mono cursor-default"
+              style={{ color: hovered ? "var(--text)" : "var(--text-muted)", transition: "color 0.15s" }}
+            >
+              Designed &amp; built by Christof (with a bit of help from Claude).
+            </button>
+
+            <AnimatePresence>
+              {hovered && (
+                <div
+                  className="pointer-events-none absolute"
+                  style={{
+                    bottom: "calc(100% + 10px)",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    zIndex: 100,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <div
+                      className="text-xs font-mono px-3 py-2 rounded-lg"
+                      style={{
+                        background: "rgba(20,18,16,0.97)",
+                        backdropFilter: "blur(14px)",
+                        border: "1px solid rgba(255,251,240,0.1)",
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      i mean, who isn&apos;t using AI for most things nowadays?
+                    </div>
+                    {/* Arrow */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: -4,
+                        left: "50%",
+                        width: 8,
+                        height: 8,
+                        transform: "translateX(-50%) rotate(45deg)",
+                        background: "rgba(20,18,16,0.97)",
+                        borderRight: "1px solid rgba(255,251,240,0.1)",
+                        borderBottom: "1px solid rgba(255,251,240,0.1)",
+                      }}
+                    />
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Under construction pill */}
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-mono"
             style={{
-              background: "var(--surface)",
-              border: "1px solid rgba(245,158,11,0.2)",
+              background: "rgba(249,115,22,0.08)",
+              border: "1px solid rgba(249,115,22,0.22)",
+              color: "rgba(249,115,22,0.85)",
             }}
           >
-            <p style={{ color: "var(--accent)" }}>$ claude code --portfolio</p>
-            <p className="mt-1" style={{ color: "var(--text-muted)" }}>
-              Yes, this portfolio was designed and built collaboratively with Claude Code —
-              an AI pair programmer from Anthropic. The strategy, copy, and design decisions?
-              All Christof. The scaffolding, components, and late-night debugging? A team effort.
-            </p>
-          </motion.div>
-        )}
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "rgba(249,115,22,0.9)",
+                display: "inline-block",
+                flexShrink: 0,
+                animation: "pulse-amber 1.4s ease-in-out infinite",
+              }}
+            />
+            under construction
+          </span>
+        </div>
       </div>
     </footer>
   );

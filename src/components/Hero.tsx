@@ -191,7 +191,7 @@ export default function Hero() {
   const activeLang = LANGUAGES[langIdx];
 
   return (
-    <section className="hero-section relative h-screen" style={{ overflow: "visible" }}>
+    <section className="relative h-screen" style={{ overflow: "visible" }}>
 
       {/* Gradient — left-to-right on desktop, top-to-bottom on mobile */}
       <div
