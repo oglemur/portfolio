@@ -191,7 +191,7 @@ export default function Hero() {
   const activeLang = LANGUAGES[langIdx];
 
   return (
-    <section className="relative h-screen" style={{ overflow: "visible" }}>
+    <section className="hero-section relative h-screen" style={{ overflow: "visible" }}>
 
       {/* Gradient — left-to-right on desktop, top-to-bottom on mobile */}
       <div
@@ -353,6 +353,15 @@ export default function Hero() {
       </div>
 
       </div>{/* end constrained layout container */}
+
+      {/* Bottom section fade — blends hero into Work on mobile */}
+      <div
+        className="sm:hidden absolute bottom-0 left-0 right-0 pointer-events-none z-20"
+        style={{
+          height: 100,
+          background: "linear-gradient(to bottom, transparent, #0B0A08)",
+        }}
+      />
     </section>
   );
 }

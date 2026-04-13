@@ -103,49 +103,48 @@ body {
   scroll-margin-top: 80px;
 }
 
-/* Hero text glass — only on mid-range screens where globe overlaps text */
+/* Hero text glass — gradient handles contrast on mobile, not needed */
 .hero-text-glass {
   background: transparent;
 }
 
-@media (min-width: 400px) and (max-width: 639px) {
-  .hero-text-glass {
-    background: rgba(11, 10, 8, 0.72);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 251, 240, 0.06);
-    border-radius: 18px;
-    padding: 28px 24px;
-  }
-}
-
 /* Mobile stacked hero layout */
 @media (max-width: 639px) {
+  /* Clip globe left/right overflow cleanly */
+  .hero-section {
+    overflow: hidden;
+  }
+
+  /* Globe: square aspect ratio so it stays round, centered at top, zoomed */
   .hero-globe-container {
     top: 0 !important;
     right: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 130vw !important;
-    height: 56vh !important;
+    width: 124vw !important;
+    height: 124vw !important;
   }
 
+  /* Text: anchored to bottom half, no overflow into next section */
   .hero-text-container {
-    top: 47% !important;
+    top: 44% !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     max-width: 100% !important;
     justify-content: flex-start !important;
     padding-top: 20px !important;
+    overflow: hidden;
   }
 
+  /* Gradient: top-to-bottom fade, transparent over globe → solid dark for text */
   .hero-gradient {
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      transparent 28%,
-      rgba(11, 10, 8, 0.55) 40%,
+      transparent 24%,
+      rgba(11, 10, 8, 0.5) 36%,
+      rgba(11, 10, 8, 0.92) 45%,
       #0B0A08 52%
     ) !important;
   }
