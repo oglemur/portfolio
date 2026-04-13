@@ -38,13 +38,13 @@ export default function NorthStationPage() {
             North Station Display
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "var(--text-muted)" }}>
-            A live MBTA departure board for North Station, rendered in authentic amber on a 192×32 LED matrix. Written in Python. Runs on hardware I built.
+            I live above North Station. I have the Green Line sign. The departure board was inevitable.
           </p>
         </motion.div>
 
         {/* Metadata row */}
         <motion.div {...fade(0.1)} className="flex flex-wrap gap-2 mt-8 mb-16">
-          {["Python", "MBTA API", "Pillow", "LED hardware", "Darktronics"].map((tag) => (
+          {["Python", "MBTA API", "Pillow", "Raspberry Pi", "LED hardware", "Darktronics"].map((tag) => (
             <span
               key={tag}
               className="text-xs px-3 py-1 rounded-full font-mono"
@@ -80,13 +80,13 @@ export default function NorthStationPage() {
           </p>
           <div className="max-w-2xl space-y-4 text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
             <p>
-              I commute through North Station. The real departure boards are fine, but they&apos;re also 30 feet overhead and designed for a crowd. I wanted something smaller, always on, just for me.
+              I live directly above North Station. At some point that became a whole apartment aesthetic — there&apos;s an authentic Green Line sign on my wall. The departure board was the next logical step.
             </p>
             <p>
-              The script hits the MBTA V3 API every 30 seconds, formats the next two departures, and renders them onto a 192×32 pixel canvas using Pillow. Then that image gets pushed to the LED matrix. The whole thing runs in a loop.
+              Part functional, part decoration. A Raspberry Pi drives a 192×32 LED matrix: Python hits the MBTA API, Pillow draws the next two departures onto a tiny pixel canvas, that image gets pushed to the panel. Runs in a loop. Looks good next to the sign.
             </p>
             <p>
-              Font is Darktronics — a bitmap typeface designed for exactly this kind of display. At 20pt on 32px of height it fits with one pixel to spare.
+              The font is Darktronics — a bitmap typeface built for exactly this kind of display. Fits in 20pt with one pixel to spare and reads perfectly from across the room.
             </p>
           </div>
         </motion.section>
@@ -96,11 +96,12 @@ export default function NorthStationPage() {
           <p className="text-xs tracking-[0.18em] uppercase font-mono mb-6" style={{ color: "var(--accent)" }}>
             How it&apos;s built
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
+              { label: "Brains", value: "Raspberry Pi", sub: "runs the Python loop, always on" },
               { label: "Data", value: "MBTA V3 API", sub: "predictions endpoint, 30s refresh" },
               { label: "Rendering", value: "Python + Pillow", sub: "192×32px pixel canvas" },
-              { label: "Display", value: "LED matrix", sub: "custom hardware, amber" },
+              { label: "Display", value: "LED matrix", sub: "amber, very satisfying" },
             ].map((item) => (
               <div
                 key={item.label}

@@ -123,7 +123,7 @@ const sideProjects = [
   {
     title: "North Station Display",
     description:
-      "Live MBTA arrival board running on custom hardware. Python + MBTA API rendered onto a 192×32px LED panel in authentic amber.",
+      "I live above North Station. I have the Green Line sign. This was the next logical step — Python + MBTA API on a 192×32 LED panel.",
     status: "In progress",
     tags: ["Python", "MBTA API", "LED hardware"],
     href: "/projects/north-station",
