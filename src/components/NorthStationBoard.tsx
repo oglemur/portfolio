@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
-const LINES = [
-  { route: "Newburyport / Rockport", dest: "Rockport",           track: "4",  mins: 3  },
-  { route: "Haverhill",              dest: "Haverhill",           track: "7",  mins: 11 },
-  { route: "Lowell",                 dest: "Lowell",              track: "2",  mins: 17 },
-  { route: "Fitchburg",              dest: "Wachusett",           track: "5",  mins: 24 },
-  { route: "Newburyport / Rockport", dest: "Newburyport",        track: "6",  mins: 38 },
-  { route: "Haverhill",              dest: "Reading",             track: "3",  mins: 52 },
-];
+interface Train {
+  destination: string;
+  displayTime: string;
+}
+
+interface MbtaResponse {
+  green: Train[];
+  orange: Train[];
+  error?: string;
+}
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -19,54 +21,76 @@ function formatTime(date: Date) {
   return `${pad(date.getHours() % 12 || 12)}:${pad(date.getMinutes())} ${date.getHours() >= 12 ? "PM" : "AM"}`;
 }
 
-function departsLabel(mins: number) {
-  if (mins <= 0) return "BRD";
-  if (mins === 1) return "1 min";
-  return `${mins} min`;
-}
-
 export default function NorthStationBoard() {
+  const [green, setGreen] = useState<Train[]>([]);
+  const [orange, setOrange] = useState<Train[]>([]);
+  const [showOrange, setShowOrange] = useState(false);
   const [now, setNow] = useState(new Date());
-  const [elapsed, setElapsed] = useState(0); // seconds since mount
 
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await fetch("/api/mbta");
+      if (!res.ok) return;
+      const data: MbtaResponse = await res.json();
+      if (!data.error) {
+        setGreen(data.green ?? []);
+        setOrange(data.orange ?? []);
+      }
+    } catch {
+      // keep stale data
+    }
+  }, []);
+
+  // Fetch on mount, refresh every 30s
   useEffect(() => {
-    const id = setInterval(() => {
-      setNow(new Date());
-      setElapsed((s) => s + 1);
-    }, 1000);
+    fetchData();
+    const id = setInterval(fetchData, 30_000);
+    return () => clearInterval(id);
+  }, [fetchData]);
+
+  // Cycle between Green and Orange every 15s
+  useEffect(() => {
+    const id = setInterval(() => setShowOrange((v) => !v), 15_000);
     return () => clearInterval(id);
   }, []);
 
-  // Live countdown: subtract elapsed seconds from initial mins
-  const trains = LINES.map((line) => ({
-    ...line,
-    remaining: line.mins * 60 - elapsed,
-  })).filter((t) => t.remaining > -30); // remove trains that already left
+  // Clock tick
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const trains = showOrange ? orange : green;
+  const lineLabel = showOrange ? "Orange Line" : "Green Line";
+  const lineColor = showOrange ? "235,127,35" : "75,181,67";
 
   return (
     <div
       className="rounded-xl overflow-hidden font-mono text-xs select-none"
       style={{
         background: "#050400",
-        border: "1px solid rgba(245,158,11,0.15)",
-        boxShadow: "0 0 40px rgba(245,158,11,0.04) inset",
+        border: `1px solid rgba(${lineColor},0.15)`,
+        boxShadow: `0 0 40px rgba(${lineColor},0.04) inset`,
       }}
     >
-      {/* Header bar */}
+      {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3"
         style={{
-          background: "rgba(245,158,11,0.06)",
-          borderBottom: "1px solid rgba(245,158,11,0.12)",
+          background: `rgba(${lineColor},0.06)`,
+          borderBottom: `1px solid rgba(${lineColor},0.12)`,
         }}
       >
         <span
           className="tracking-[0.25em] uppercase text-xs"
-          style={{ color: "#F59E0B", textShadow: "0 0 10px rgba(245,158,11,0.6)" }}
+          style={{
+            color: `rgb(${lineColor})`,
+            textShadow: `0 0 10px rgba(${lineColor},0.6)`,
+          }}
         >
-          ◈ NORTH STATION
+          ◈ NORTH STATION · {lineLabel}
         </span>
-        <span style={{ color: "rgba(245,158,11,0.5)" }}>
+        <span style={{ color: `rgba(${lineColor},0.5)` }}>
           {formatTime(now)}
         </span>
       </div>
@@ -75,99 +99,76 @@ export default function NorthStationBoard() {
       <div
         className="grid px-4 py-2"
         style={{
-          gridTemplateColumns: "1fr auto auto",
-          borderBottom: "1px solid rgba(245,158,11,0.08)",
-          color: "rgba(245,158,11,0.35)",
+          gridTemplateColumns: "1fr auto",
+          borderBottom: `1px solid rgba(${lineColor},0.08)`,
+          color: `rgba(${lineColor},0.35)`,
           letterSpacing: "0.15em",
           textTransform: "uppercase",
           fontSize: "0.6rem",
         }}
       >
         <span>Destination</span>
-        <span className="text-right pr-6">Track</span>
-        <span className="text-right w-14">Departs</span>
+        <span className="text-right w-16">Departs</span>
       </div>
 
       {/* Train rows */}
-      <div className="divide-y" style={{ borderColor: "rgba(245,158,11,0.06)" }}>
-        {trains.map((train, i) => {
-          const minsLeft = Math.floor(train.remaining / 60);
-          const isBoarding = train.remaining <= 60 && train.remaining > -30;
-          const isSoon = minsLeft <= 5 && !isBoarding;
-
-          return (
-            <div
-              key={`${train.dest}-${train.mins}`}
-              className="grid items-center px-4 py-2.5"
-              style={{
-                gridTemplateColumns: "1fr auto auto",
-                opacity: i === 0 ? 1 : 0.7 + (trains.length - i) * 0.04,
-              }}
-            >
-              {/* Destination */}
-              <div>
+      <div className="divide-y" style={{ borderColor: `rgba(${lineColor},0.06)` }}>
+        {trains.length === 0 ? (
+          <div
+            className="px-4 py-3"
+            style={{ color: `rgba(${lineColor},0.3)`, letterSpacing: "0.1em" }}
+          >
+            FETCHING…
+          </div>
+        ) : (
+          trains.map((train, i) => {
+            const isArriving = train.displayTime === "ARR";
+            return (
+              <div
+                key={`${train.destination}-${i}`}
+                className="grid items-center px-4 py-2.5"
+                style={{
+                  gridTemplateColumns: "1fr auto",
+                  opacity: i === 0 ? 1 : 0.65,
+                }}
+              >
                 <div
                   style={{
-                    color: isBoarding ? "#FFF" : "#F59E0B",
-                    textShadow: isBoarding
+                    color: isArriving ? "#FFF" : `rgb(${lineColor})`,
+                    textShadow: isArriving
                       ? "0 0 12px rgba(255,255,255,0.8)"
-                      : isSoon
-                      ? "0 0 10px rgba(245,158,11,0.9)"
-                      : "0 0 6px rgba(245,158,11,0.4)",
+                      : `0 0 8px rgba(${lineColor},0.5)`,
                     letterSpacing: "0.08em",
                   }}
                 >
-                  {train.dest}
+                  {train.destination}
                 </div>
                 <div
+                  className="text-right w-16"
                   style={{
-                    color: "rgba(245,158,11,0.3)",
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.1em",
-                    marginTop: "1px",
+                    color: isArriving ? "#FFF" : `rgba(${lineColor},0.85)`,
+                    textShadow: isArriving
+                      ? "0 0 14px rgba(255,255,255,0.9)"
+                      : `0 0 8px rgba(${lineColor},0.5)`,
+                    fontWeight: isArriving ? 700 : 400,
+                    letterSpacing: "0.08em",
+                    animation: isArriving ? "pulse-amber 1s ease-in-out infinite" : undefined,
                   }}
                 >
-                  {train.route}
+                  {train.displayTime}
                 </div>
               </div>
-
-              {/* Track */}
-              <div
-                className="text-right pr-6"
-                style={{
-                  color: "rgba(245,158,11,0.55)",
-                  textShadow: "0 0 6px rgba(245,158,11,0.3)",
-                }}
-              >
-                {train.track}
-              </div>
-
-              {/* Departs */}
-              <div
-                className="text-right w-14"
-                style={{
-                  color: isBoarding ? "#FFF" : isSoon ? "#F59E0B" : "rgba(245,158,11,0.7)",
-                  textShadow: isBoarding
-                    ? "0 0 14px rgba(255,255,255,0.9)"
-                    : "0 0 8px rgba(245,158,11,0.5)",
-                  fontWeight: isBoarding ? 700 : 400,
-                  letterSpacing: isBoarding ? "0.05em" : "0.08em",
-                  animation: isBoarding ? "pulse-amber 1s ease-in-out infinite" : undefined,
-                }}
-              >
-                {departsLabel(minsLeft)}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
 
       {/* Footer */}
       <div
         className="px-4 py-2 flex items-center gap-2"
         style={{
-          borderTop: "1px solid rgba(245,158,11,0.08)",
-          color: "rgba(245,158,11,0.25)",
+          borderTop: `1px solid rgba(${lineColor},0.08)`,
+          color: `rgba(${lineColor},0.25)`,
           fontSize: "0.6rem",
           letterSpacing: "0.12em",
         }}
@@ -175,12 +176,12 @@ export default function NorthStationBoard() {
         <span
           className="inline-block w-1.5 h-1.5 rounded-full"
           style={{
-            background: "#F59E0B",
-            boxShadow: "0 0 6px rgba(245,158,11,0.8)",
+            background: `rgb(${lineColor})`,
+            boxShadow: `0 0 6px rgba(${lineColor},0.8)`,
             animation: "pulse-amber 2s ease-in-out infinite",
           }}
         />
-        MBTA COMMUTER RAIL · LIVE
+        MBTA · LIVE
       </div>
     </div>
   );

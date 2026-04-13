@@ -126,6 +126,7 @@ const sideProjects = [
       "Live MBTA arrival board running on custom hardware. Python + MBTA API rendered onto a 192×32px LED panel in authentic amber.",
     status: "In progress",
     tags: ["Python", "MBTA API", "LED hardware"],
+    href: "/projects/north-station",
   },
 ];
 
@@ -261,49 +262,53 @@ export default function About() {
 
         <div className="flex flex-col gap-3">
           {sideProjects.map((p) => (
-            <GlassCard
-              key={p.title}
-              className="rounded-2xl p-8"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-            >
-              <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="text-2xl font-semibold tracking-tight" style={{ color: "var(--text)" }}>
-                  {p.title}
-                </h3>
-                <span
-                  className="text-xs px-2.5 py-1 rounded-full font-mono shrink-0"
-                  style={{
-                    background: "rgba(245,158,11,0.08)",
-                    border: "1px solid rgba(245,158,11,0.2)",
-                    color: "var(--accent)",
-                  }}
-                >
-                  {p.status}
-                </span>
-              </div>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--text-muted)" }}>
-                {p.description}
-              </p>
+            <Link key={p.title} href={p.href} style={{ textDecoration: "none" }}>
+              <GlassCard
+                className="rounded-2xl p-8 transition-opacity hover:opacity-90 cursor-pointer"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <h3 className="text-2xl font-semibold tracking-tight" style={{ color: "var(--text)" }}>
+                    {p.title}
+                  </h3>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span
+                      className="text-xs px-2.5 py-1 rounded-full font-mono"
+                      style={{
+                        background: "rgba(245,158,11,0.08)",
+                        border: "1px solid rgba(245,158,11,0.2)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      {p.status}
+                    </span>
+                    <span className="text-xs font-mono" style={{ color: "rgba(245,158,11,0.4)" }}>→</span>
+                  </div>
+                </div>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--text-muted)" }}>
+                  {p.description}
+                </p>
 
-              {/* Live board demo */}
-              <NorthStationBoard />
+                {/* Live LED board preview */}
+                <NorthStationBoard />
 
-              <div className="flex gap-2 flex-wrap mt-5">
-                {p.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full font-mono"
-                    style={{
-                      background: "rgba(245,158,11,0.07)",
-                      border: "1px solid rgba(245,158,11,0.15)",
-                      color: "var(--accent)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </GlassCard>
+                <div className="flex gap-2 flex-wrap mt-5">
+                  {p.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs px-3 py-1 rounded-full font-mono"
+                      style={{
+                        background: "rgba(245,158,11,0.07)",
+                        border: "1px solid rgba(245,158,11,0.15)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </GlassCard>
+            </Link>
           ))}
         </div>
       </motion.div>
