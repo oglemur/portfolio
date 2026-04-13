@@ -193,9 +193,9 @@ export default function Hero() {
   return (
     <section className="relative h-screen" style={{ overflow: "visible" }}>
 
-      {/* Left gradient — stays full-bleed */}
+      {/* Gradient — left-to-right on desktop, top-to-bottom on mobile */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="hero-gradient absolute inset-0 pointer-events-none"
         style={{
           background:
             "linear-gradient(to right, #0B0A08 26%, rgba(11,10,8,0.78) 50%, rgba(11,10,8,0.08) 74%, transparent 92%)",
@@ -208,7 +208,7 @@ export default function Hero() {
       {/* Globe — large, vertically centered, bleeds top and bottom */}
       <div
         ref={globeContainerRef}
-        className="absolute pointer-events-none"
+        className="hero-globe-container absolute pointer-events-none"
         aria-hidden="true"
         style={{
           top: "50%",
@@ -262,7 +262,7 @@ export default function Hero() {
       </div>
 
       {/* Main text */}
-      <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 pt-20 z-10 max-w-3xl">
+      <div className="hero-text-container absolute inset-0 flex flex-col justify-center px-8 sm:px-12 pt-20 z-10 max-w-3xl">
       <div className="hero-text-glass">
 
         {/* Language cycling */}
