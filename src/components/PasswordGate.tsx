@@ -6,12 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 const CORRECT = process.env.NEXT_PUBLIC_ES_PASSWORD ?? "espm";
 
 const BOOT = [
-  { id: "cmd1", text: "$ cat energy-star-case-study.md",                  dim: false },
+  { id: "pre1", text: "# trying to open the case study...",                dim: true  },
+  { id: "cmd1", text: "$ cat energy-star-case-study.md",                   dim: false },
+  { id: "pre2", text: "# oops. it's protected.",                           dim: true  },
   { id: "err",  text: "cat: energy-star-case-study.md: Permission denied", dim: true  },
+  { id: "pre3", text: "# trying again with elevated permissions...",       dim: true  },
   { id: "cmd2", text: "$ sudo cat energy-star-case-study.md",              dim: false },
 ];
 
-const DELAYS = [0, 550, 1150];
+const DELAYS = [0, 200, 750, 950, 1500, 1700];
 
 type Phase = "boot" | "prompt" | "denied" | "granted";
 
