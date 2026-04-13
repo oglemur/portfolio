@@ -354,14 +354,6 @@ export default function Hero() {
 
       </div>{/* end constrained layout container */}
 
-      {/* Bottom section fade — blends hero into Work on mobile */}
-      <div
-        className="sm:hidden absolute bottom-0 left-0 right-0 pointer-events-none z-20"
-        style={{
-          height: 100,
-          background: "linear-gradient(to bottom, transparent, #0B0A08)",
-        }}
-      />
     </section>
   );
 }

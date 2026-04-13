@@ -153,12 +153,12 @@ function GlassCard({
 
 export default function About() {
   return (
-    <section id="about" className="py-28 px-8 sm:px-12 max-w-6xl mx-auto">
+    <section className="py-28 px-8 sm:px-12 max-w-6xl mx-auto">
       {/* Divider */}
       <div className="mb-28" style={{ height: "1px", background: "var(--border)" }} />
 
       {/* Bio + stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-28">
+      <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-28">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
