@@ -177,13 +177,15 @@ export default function EnergyStarBenchmarking() {
                 paddingLeft: "1.25rem",
               }}
             >
-              The old stack: a 2012 transaction tool, SQL scripts, Excel templates, and an Access database.
-              A single monthly data load took ~2 hours — and that was just runtime.
+              The old stack: a Windows desktop app. A SOAP XML web service on IIS. An Access database on
+              a shared network drive. All of it on-prem. All of it .NET Framework 4.8. Still running in 2024.
             </blockquote>
             <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
-              Analysts would open 30+ parallel instances of the tool because it maxed out at 50,000 rows.
-              Duplicate submissions to the EPA were common. The whole thing was held together with duct tape,
-              and demand was growing.
+              The actual data flow: pull from SQL Server, cross-reference Access files on the M: drive,
+              export to Excel, open the desktop app, serialize to XML, POST via SOAP to a local IIS
+              server, which then called the EPA&apos;s REST API. Every month. Analysts would open 30+ parallel
+              instances because the tool maxed out at 50,000 rows. Duplicate EPA submissions were common.
+              Version control was SVN until recently. Demand was growing.
             </p>
           </motion.div>
         </div>
