@@ -83,8 +83,8 @@ export default function EnergyStarBenchmarking() {
             ENERGY STAR Benchmarking
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "var(--text-muted)" }}>
-            Replaced a 12-year-old manual process with an automated platform. Two analysts.
-            Hundreds of corporate buildings. A monthly data load that used to take hours — now takes minutes.
+            Replaced a 12-year-old manual process with an modern, automated system. Two analysts.
+            65,000+ locations. A monthly data load that used to take hours, now takes minutes.
           </p>
         </motion.div>
 
@@ -101,7 +101,7 @@ export default function EnergyStarBenchmarking() {
             A better product doesn&apos;t sell itself to its own users.
           </blockquote>
           <p className="text-sm leading-relaxed mt-5 max-w-2xl" style={{ color: "var(--text-muted)", paddingLeft: "1.5rem" }}>
-            Phase 1 launched just before annual reporting season — the analysts&apos; busiest time of year. They didn&apos;t use it. Not because it was bad. Because they were underwater, and switching tools mid-sprint felt riskier than grinding through the old process one more time. That taught me something I hadn&apos;t learned in any design program.
+            Phase 1 launched just before annual reporting season — the analysts&apos; busiest time of year. They didn&apos;t use it. Not because it was bad, but because they were underwater and switching tools when 125 clients are breathing down your neck felt riskier than grinding through the old process one more time. Some things you just don't learn in a design program.
           </p>
         </motion.div>
 
@@ -112,10 +112,10 @@ export default function EnergyStarBenchmarking() {
           style={{ border: "1px solid var(--border)" }}
         >
           {[
-            { label: "Timeline", value: "12–18 Months" },
+            { label: "Timeline", value: "12 Months" },
             { label: "Role", value: "PM + Designer" },
-            { label: "Team", value: "~4 Engineers" },
-            { label: "Type", value: "0→1 Internal Platform" },
+            { label: "Team", value: "4 Engineers" },
+            { label: "Type", value: "0→1 Internal System" },
           ].map((item, i) => (
             <div
               key={item.label}
@@ -223,7 +223,7 @@ export default function EnergyStarBenchmarking() {
         <motion.div id="solution" {...fade()} className="mb-14">
           <p className="text-xs tracking-[0.2em] uppercase font-mono mb-4" style={{ color: "var(--accent)" }}>Solution</p>
           <h2 className="text-3xl font-bold tracking-tight mb-6" style={{ color: "var(--text)" }}>
-            One platform. One action. No more duct tape.
+            One system. One action. No more duct tape.
           </h2>
           <p className="text-base leading-relaxed max-w-2xl" style={{ color: "var(--text-muted)" }}>
             We built a new ENERGY STAR module inside Ellipse — ENGIE&apos;s internal platform — to replace
