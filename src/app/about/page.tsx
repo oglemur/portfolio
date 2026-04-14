@@ -123,20 +123,14 @@ export default function About() {
 
         {/* Intro — headshot + bio */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-28 items-start">
-          {/* Headshot placeholder */}
+          {/* Headshot */}
           <motion.div {...fade(0.08)}>
-            <div
-              className="rounded-2xl flex items-center justify-center"
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                aspectRatio: "3 / 4",
-              }}
-            >
-              <p className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>
-                photo coming soon
-              </p>
-            </div>
+            <img
+              src="/images/christof about photo.JPG"
+              alt="Christof Kopera"
+              className="rounded-2xl w-full object-cover"
+              style={{ aspectRatio: "3 / 4" }}
+            />
           </motion.div>
 
           {/* Bio */}
