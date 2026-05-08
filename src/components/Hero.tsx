@@ -326,10 +326,14 @@ export default function Hero() {
         </div>
 
         {/* Bio */}
-        <p className="text-base leading-relaxed mb-10 max-w-sm" style={{ color: "var(--text-muted)" }}>
-          MHCI from Carnegie Mellon. UX before PM. I design what I build
-          and think in multiple languages — often at the same time.
-        </p>
+        <div className="mb-10 max-w-sm">
+          <p className="text-base font-semibold mb-1.5" style={{ color: "var(--text)" }}>
+            PM who still thinks like a designer.
+          </p>
+          <p className="text-base leading-relaxed" style={{ color: "var(--text-muted)" }}>
+            Carnegie Mellon MHCI. Five languages. Eleven cities. Usually thinking in two at once.
+          </p>
+        </div>
 
         {/* CTAs */}
         <div className="flex gap-4">
