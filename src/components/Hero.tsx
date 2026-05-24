@@ -38,11 +38,11 @@ function latToTheta(lat: number): number {
   return (lat * Math.PI) / 180;
 }
 
-function buildMarkers(activeIdx: number) {
+function buildMarkers(activeIdx: number, hoverIdx: number | null = null) {
   return CITIES.map((city, i) => ({
     location: city.location,
     size: 0.05,
-    color: i === activeIdx ? ([1, 1, 1] as [number, number, number]) : undefined,
+    color: (i === activeIdx || i === hoverIdx) ? ([1, 1, 1] as [number, number, number]) : undefined,
   }));
 }
 
@@ -80,17 +80,31 @@ function markerScreenPos(
 }
 
 export default function Hero() {
-  const canvasRef       = useRef<HTMLCanvasElement>(null);
-  const globeContainerRef = useRef<HTMLDivElement>(null);
-  const labelRef        = useRef<HTMLDivElement>(null);
-  const globeRef        = useRef<ReturnType<typeof createGlobe> | null>(null);
-  const phiRef          = useRef(lonToPhi(-71.06));
-  const targetPhiRef    = useRef(lonToPhi(-71.06));
-  const thetaRef        = useRef(latToTheta(42.36));
-  const targetThetaRef  = useRef(latToTheta(42.36));
-  const activeCityIdxRef = useRef(0);
+  const canvasRef           = useRef<HTMLCanvasElement>(null);
+  const globeContainerRef   = useRef<HTMLDivElement>(null);
+  const labelRef            = useRef<HTMLDivElement>(null);
+  const globeRef            = useRef<ReturnType<typeof createGlobe> | null>(null);
+  const phiRef              = useRef(lonToPhi(-71.06));
+  const targetPhiRef        = useRef(lonToPhi(-71.06));
+  const thetaRef            = useRef(latToTheta(42.36));
+  const targetThetaRef      = useRef(latToTheta(42.36));
+  const activeCityIdxRef    = useRef(0);
+  const isDraggingRef       = useRef(false);
+  const dragStartXRef       = useRef(0);
+  const dragStartYRef       = useRef(0);
+  const dragStartPhiRef     = useRef(0);
+  const dragStartThetaRef   = useRef(0);
+  const totalDragRef        = useRef(0);
+  const userInteractingRef  = useRef(false);
+  const resumeTimerRef      = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [activeCityIdx, setActiveCityIdx] = useState(0);
+  const hoverCityIdxRef   = useRef<number | null>(null);
+  const clickedCityIdxRef = useRef<number | null>(null);
+  const hoverLabelRef     = useRef<HTMLDivElement>(null);
+
+  const [activeCityIdx, setActiveCityIdx]   = useState(0);
+  const [hoverCityIdx, setHoverCityIdx]     = useState<number | null>(null);
+  const [clickedCityIdx, setClickedCityIdx] = useState<number | null>(null);
   const [langIdx, setLangIdx] = useState(0);
 
   // Cycle languages
@@ -99,9 +113,10 @@ export default function Hero() {
     return () => clearInterval(id);
   }, []);
 
-  // Cycle cities
+  // Cycle cities (paused while user is interacting)
   useEffect(() => {
     const id = setInterval(() => {
+      if (userInteractingRef.current) return;
       setActiveCityIdx((i) => {
         const next = (i + 1) % CITIES.length;
         activeCityIdxRef.current = next;
@@ -113,6 +128,106 @@ export default function Hero() {
     }, 4000);
     return () => clearInterval(id);
   }, []);
+
+  // Cleanup resume timer on unmount
+  useEffect(() => () => { if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current); }, []);
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current      = true;
+    dragStartXRef.current      = e.clientX;
+    dragStartYRef.current      = e.clientY;
+    dragStartPhiRef.current    = phiRef.current;
+    dragStartThetaRef.current  = thetaRef.current;
+    totalDragRef.current       = 0;
+    userInteractingRef.current = true;
+    clickedCityIdxRef.current  = null;
+    setClickedCityIdx(null);
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    if (globeContainerRef.current) globeContainerRef.current.style.cursor = "grabbing";
+  };
+
+  const hitTest = (clientX: number, clientY: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return -1;
+    const rect  = canvas.getBoundingClientRect();
+    const normX = (clientX - rect.left) / rect.width;
+    const normY = (clientY - rect.top)  / rect.height;
+    let closest = -1, closestDist = Infinity;
+    CITIES.forEach((city, i) => {
+      const pos = markerScreenPos(city.location, phiRef.current, thetaRef.current);
+      if (!pos.visible) return;
+      const ddx = (normX - pos.x) * rect.width;
+      const ddy = (normY - pos.y) * rect.height;
+      const dist = Math.sqrt(ddx * ddx + ddy * ddy);
+      if (dist < closestDist) { closestDist = dist; closest = i; }
+    });
+    return closestDist < 28 ? closest : -1;
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDraggingRef.current) {
+      const dx = e.clientX - dragStartXRef.current;
+      const dy = e.clientY - dragStartYRef.current;
+      totalDragRef.current = Math.sqrt(dx * dx + dy * dy);
+      phiRef.current       = dragStartPhiRef.current + dx * 0.005;
+      targetPhiRef.current = phiRef.current;
+      thetaRef.current     = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, dragStartThetaRef.current + dy * 0.005));
+      targetThetaRef.current = thetaRef.current;
+      return;
+    }
+
+    const hit = hitTest(e.clientX, e.clientY);
+    const newHover = hit !== -1 ? hit : null;
+    if (newHover !== hoverCityIdxRef.current) {
+      hoverCityIdxRef.current = newHover;
+      setHoverCityIdx(newHover);
+      globeRef.current?.update({ markers: buildMarkers(activeCityIdxRef.current, newHover) });
+      if (globeContainerRef.current)
+        globeContainerRef.current.style.cursor = newHover !== null ? "pointer" : "grab";
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    if (globeContainerRef.current) globeContainerRef.current.style.cursor = "grab";
+
+    resumeTimerRef.current = setTimeout(() => {
+      userInteractingRef.current = false;
+    }, 3000);
+
+    if (totalDragRef.current < 6) {
+      const hit = hitTest(e.clientX, e.clientY);
+      if (hit !== -1) {
+        // Toggle tooltip: same dot dismisses, different dot switches
+        const next = hit === clickedCityIdxRef.current ? null : hit;
+        clickedCityIdxRef.current = next;
+        setClickedCityIdx(next);
+        if (next !== null) {
+          const city = CITIES[next];
+          activeCityIdxRef.current = next;
+          setActiveCityIdx(next);
+          targetPhiRef.current   = lonToPhi(city.location[1]);
+          targetThetaRef.current = latToTheta(city.location[0]);
+          globeRef.current?.update({ markers: buildMarkers(next, hoverCityIdxRef.current) });
+        }
+      } else {
+        // Clicked empty space — dismiss tooltip
+        clickedCityIdxRef.current = null;
+        setClickedCityIdx(null);
+      }
+    }
+  };
+
+  const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    handlePointerUp(e);
+    hoverCityIdxRef.current = null;
+    setHoverCityIdx(null);
+    globeRef.current?.update({ markers: buildMarkers(activeCityIdxRef.current, null) });
+    if (globeContainerRef.current && !isDraggingRef.current)
+      globeContainerRef.current.style.cursor = "grab";
+  };
 
   // Globe + label-tracking rAF loop
   useEffect(() => {
@@ -163,15 +278,33 @@ export default function Hero() {
 
       globe.update({ phi: phiRef.current, theta: thetaRef.current });
 
-      // Track active dot — update label position directly (no React re-render)
+      // Active label — hide when a tooltip is open
       const label = labelRef.current;
       const container = globeContainerRef.current;
       if (label && container) {
-        const city = CITIES[activeCityIdxRef.current];
-        const pos = markerScreenPos(city.location, phiRef.current, thetaRef.current);
-        label.style.left = `${pos.x * 100}%`;
-        label.style.top  = `${pos.y * 100}%`;
-        label.style.opacity = pos.visible ? "1" : "0";
+        if (clickedCityIdxRef.current !== null) {
+          label.style.opacity = "0";
+        } else {
+          const city = CITIES[activeCityIdxRef.current];
+          const pos = markerScreenPos(city.location, phiRef.current, thetaRef.current);
+          label.style.left = `${pos.x * 100}%`;
+          label.style.top  = `${pos.y * 100}%`;
+          label.style.opacity = pos.visible ? "1" : "0";
+        }
+      }
+
+      // Click tooltip — tracks the clicked dot
+      const hoverLabel = hoverLabelRef.current;
+      if (hoverLabel) {
+        if (clickedCityIdxRef.current !== null) {
+          const cCity = CITIES[clickedCityIdxRef.current];
+          const cPos  = markerScreenPos(cCity.location, phiRef.current, thetaRef.current);
+          hoverLabel.style.left    = `${cPos.x * 100}%`;
+          hoverLabel.style.top     = `${cPos.y * 100}%`;
+          hoverLabel.style.opacity = cPos.visible ? "1" : "0";
+        } else {
+          hoverLabel.style.opacity = "0";
+        }
       }
 
       rafId = requestAnimationFrame(animate);
@@ -208,15 +341,21 @@ export default function Hero() {
       {/* Globe — large, vertically centered, bleeds top and bottom */}
       <div
         ref={globeContainerRef}
-        className="hero-globe-container absolute pointer-events-none"
-        aria-hidden="true"
+        className="hero-globe-container absolute"
         style={{
           top: "50%",
           right: "-10%",
           transform: "translateY(-50%)",
-          width: "min(125vh, 1150px)",
-          height: "min(125vh, 1150px)",
+          width: "min(145vh, 1350px)",
+          height: "min(145vh, 1350px)",
+          cursor: "grab",
+          touchAction: "none",
+          userSelect: "none",
         }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerLeave}
       >
         <canvas ref={canvasRef} style={{ width: "100%", height: "100%", opacity: 0.88 }} />
 
@@ -224,7 +363,7 @@ export default function Hero() {
         <div
           ref={labelRef}
           className="absolute z-20 pointer-events-none"
-          style={{ transform: "translate(-50%, 14px)" }}
+          style={{ transform: "translate(-50%, 14px)", transition: "opacity 0.15s ease" }}
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -258,6 +397,31 @@ export default function Hero() {
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Hover label — tracks hovered dot via rAF, fades via CSS transition */}
+        <div
+          ref={hoverLabelRef}
+          className="absolute z-20 pointer-events-none"
+          style={{ transform: "translate(-50%, calc(-100% - 10px))", opacity: 0, transition: "opacity 0.15s ease" }}
+        >
+          {clickedCityIdx !== null && (
+            <div
+              className="inline-block px-3 py-2 rounded-lg"
+              style={{
+                background: "rgba(11, 10, 8, 0.72)",
+                backdropFilter: "blur(6px)",
+                border: "1px solid rgba(255, 251, 240, 0.08)",
+              }}
+            >
+              <p className="text-xs font-mono tracking-[0.15em] uppercase mb-0.5 whitespace-nowrap" style={{ color: "var(--text)" }}>
+                {CITIES[clickedCityIdx].name}, {CITIES[clickedCityIdx].country}
+              </p>
+              <p className="text-xs leading-snug whitespace-nowrap" style={{ color: "var(--text-muted)" }}>
+                {CITIES[clickedCityIdx].blurb}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
