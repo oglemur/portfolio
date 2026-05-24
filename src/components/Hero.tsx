@@ -140,14 +140,14 @@ export default function Hero() {
     dragStartThetaRef.current  = thetaRef.current;
     totalDragRef.current       = 0;
     userInteractingRef.current = true;
-    clickedCityIdxRef.current  = null;
-    setClickedCityIdx(null);
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    // Skip setPointerCapture on touch — conflicts with pan-y scroll
+    if (e.pointerType !== "touch")
+      (e.currentTarget as Element).setPointerCapture(e.pointerId);
     if (globeContainerRef.current) globeContainerRef.current.style.cursor = "grabbing";
   };
 
-  const hitTest = (clientX: number, clientY: number) => {
+  const hitTest = (clientX: number, clientY: number, threshold = 28) => {
     const canvas = canvasRef.current;
     if (!canvas) return -1;
     const rect  = canvas.getBoundingClientRect();
@@ -162,7 +162,7 @@ export default function Hero() {
       const dist = Math.sqrt(ddx * ddx + ddy * ddy);
       if (dist < closestDist) { closestDist = dist; closest = i; }
     });
-    return closestDist < 28 ? closest : -1;
+    return closestDist < threshold ? closest : -1;
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -176,6 +176,9 @@ export default function Hero() {
       targetThetaRef.current = thetaRef.current;
       return;
     }
+
+    // No hover state on touch — pointer hovers don't exist
+    if (e.pointerType === "touch") return;
 
     const hit = hitTest(e.clientX, e.clientY);
     const newHover = hit !== -1 ? hit : null;
@@ -197,26 +200,35 @@ export default function Hero() {
       userInteractingRef.current = false;
     }, 3000);
 
-    if (totalDragRef.current < 6) {
-      const hit = hitTest(e.clientX, e.clientY);
-      if (hit !== -1) {
-        // Toggle tooltip: same dot dismisses, different dot switches
-        const next = hit === clickedCityIdxRef.current ? null : hit;
-        clickedCityIdxRef.current = next;
-        setClickedCityIdx(next);
-        if (next !== null) {
-          const city = CITIES[next];
-          activeCityIdxRef.current = next;
-          setActiveCityIdx(next);
-          targetPhiRef.current   = lonToPhi(city.location[1]);
-          targetThetaRef.current = latToTheta(city.location[0]);
-          globeRef.current?.update({ markers: buildMarkers(next, hoverCityIdxRef.current) });
-        }
-      } else {
-        // Clicked empty space — dismiss tooltip
-        clickedCityIdxRef.current = null;
-        setClickedCityIdx(null);
+    const isTouch       = e.pointerType === "touch";
+    const clickThreshold = isTouch ? 12 : 6;
+    const hitThreshold   = isTouch ? 44 : 28;
+
+    if (totalDragRef.current >= clickThreshold) {
+      // Was a drag — clear tooltip
+      clickedCityIdxRef.current = null;
+      setClickedCityIdx(null);
+      return;
+    }
+
+    const hit = hitTest(e.clientX, e.clientY, hitThreshold);
+    if (hit !== -1) {
+      // Toggle: same dot dismisses, different dot switches
+      const next = hit === clickedCityIdxRef.current ? null : hit;
+      clickedCityIdxRef.current = next;
+      setClickedCityIdx(next);
+      if (next !== null) {
+        const city = CITIES[next];
+        activeCityIdxRef.current = next;
+        setActiveCityIdx(next);
+        targetPhiRef.current   = lonToPhi(city.location[1]);
+        targetThetaRef.current = latToTheta(city.location[0]);
+        globeRef.current?.update({ markers: buildMarkers(next, hoverCityIdxRef.current) });
       }
+    } else {
+      // Tapped empty space — dismiss
+      clickedCityIdxRef.current = null;
+      setClickedCityIdx(null);
     }
   };
 
@@ -349,7 +361,7 @@ export default function Hero() {
           width: "min(145vh, 1350px)",
           height: "min(145vh, 1350px)",
           cursor: "grab",
-          touchAction: "none",
+          touchAction: "pan-y",
           userSelect: "none",
         }}
         onPointerDown={handlePointerDown}
