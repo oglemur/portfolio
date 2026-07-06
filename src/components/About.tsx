@@ -115,7 +115,7 @@ const facts = [
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
   { label: "Education", value: "MHCI, Carnegie Mellon" },
-  { label: "Currently", value: "PM, ENGIE Impact" },
+  { label: "Currently", value: "PM, Arcadia" },
   { label: "Michelin kitchens", value: "1 (Bolzano, Italy)" },
 ];
 
@@ -187,10 +187,10 @@ export default function About() {
             </Highlight>
             {" "}at CMU. Now I ship{" "}
             <Highlight
-              href="https://www.engieimpact.com/"
+              href="https://www.arcadia.com/"
               tooltip={
                 <span className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                  ENGIE Impact — sustainability consulting and software for Fortune 500 companies.
+                  Arcadia — climate tech data platform. I joined via ENGIE Impact, which Arcadia acquired.
                 </span>
               }
             >
@@ -199,7 +199,7 @@ export default function About() {
             , build AI tools on weekends, and speak five languages — rarely in the same sentence.
           </p>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
-            PM at ENGIE Impact, working with millions of energy data points for Fortune 500 clients.
+            PM at Arcadia (by way of the ENGIE Impact acquisition), working with millions of energy data points for Fortune 500 clients.
           </p>
         </motion.div>
 

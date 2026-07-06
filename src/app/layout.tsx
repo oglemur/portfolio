@@ -18,6 +18,18 @@ export const metadata: Metadata = {
   title: "Christof Kopera — Product Manager",
   description:
     "PM at the intersection of design, engineering, and people.",
+  openGraph: {
+    title: "Christof Kopera — Product Manager",
+    description:
+      "PM at the intersection of design, engineering, and people. Carnegie Mellon MHCI. Five languages. Eleven cities.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Christof Kopera — Product Manager",
+    description:
+      "PM at the intersection of design, engineering, and people.",
+  },
 };
 
 export default function RootLayout({

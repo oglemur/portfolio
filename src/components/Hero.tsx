@@ -107,14 +107,16 @@ export default function Hero() {
   const [clickedCityIdx, setClickedCityIdx] = useState<number | null>(null);
   const [langIdx, setLangIdx] = useState(0);
 
-  // Cycle languages
+  // Cycle languages (skipped for reduced-motion users)
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => setLangIdx((i) => (i + 1) % LANGUAGES.length), 2600);
     return () => clearInterval(id);
   }, []);
 
-  // Cycle cities (paused while user is interacting)
+  // Cycle cities (paused while user is interacting; skipped for reduced-motion users)
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => {
       if (userInteractingRef.current) return;
       setActiveCityIdx((i) => {

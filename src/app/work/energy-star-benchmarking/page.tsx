@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CaseStudyNav from "@/components/CaseStudyNav";
+import CaseStudyPager from "@/components/CaseStudyPager";
 import PasswordGate from "@/components/PasswordGate";
 
 const SECTIONS = [
@@ -440,7 +441,7 @@ export default function EnergyStarBenchmarking() {
             <p className="text-base leading-relaxed max-w-2xl mb-8" style={{ color: "var(--text-muted)" }}>
               At launch, we migrated all 125 existing ENERGY STAR clients into Ellipse — including roughly
               60 who had been managed entirely off-platform. Monthly data loads that used to run for hours
-              now run in minutes. The system can now handle 600,000 building sites; we had about 60,000
+              now run in minutes. The system can now handle 600,000 building sites; we had 65,000+
               in the old one.
             </p>
             <p className="text-base leading-relaxed max-w-2xl" style={{ color: "var(--text-muted)" }}>
@@ -476,6 +477,8 @@ export default function EnergyStarBenchmarking() {
             I used to assume the product did the selling. This project taught me it doesn&apos;t.
           </p>
         </motion.div>
+
+        <CaseStudyPager current="energy-star-benchmarking" />
 
       </main>
       <Footer />

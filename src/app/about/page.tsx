@@ -55,8 +55,8 @@ const TIMELINE = [
   },
   {
     period: "Sep 2024 – present",
-    location: "Boston, MA — ENGIE Impact",
-    body: "Joined as a Product Designer. Promoted to Product Manager in March 2025. Working with millions of lines of energy and sustainability data for Fortune 500 clients. TD Garden is my backyard. Love the winters. Hate the driving.",
+    location: "Boston, MA — ENGIE Impact → Arcadia",
+    body: "Joined ENGIE Impact as a Product Designer. Promoted to Product Manager in March 2025. Then we got acquired by Arcadia — new logo, same mission. Working with millions of lines of energy and sustainability data for Fortune 500 clients. TD Garden is my backyard. Love the winters. Hate the driving.",
   },
 ];
 
@@ -88,7 +88,7 @@ const FACTS = [
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
   { label: "Education", value: "MHCI, Carnegie Mellon" },
-  { label: "Currently", value: "PM, ENGIE Impact" },
+  { label: "Currently", value: "PM, Arcadia" },
   { label: "Promoted", value: "March 2025" },
   { label: "Michelin kitchens", value: "1 (Bolzano, Italy)" },
   { label: "Favorite city", value: "Still deciding" },
@@ -139,7 +139,7 @@ export default function About() {
               Grew up in Madagascar. Trained in HCI at CMU. Now I ship sustainability products, build AI tools on weekends, and speak five languages — sometimes in the same meeting.
             </p>
             <p className="text-base leading-relaxed mb-5" style={{ color: "var(--text-muted)" }}>
-              I&apos;m a Product Manager at ENGIE Impact, where I work with millions of lines of energy and sustainability data for Fortune 500 clients. I joined as a Product Designer in September 2024 and was promoted to PM in March 2025. I&apos;d been aiming for it since before I could name it.
+              I&apos;m a Product Manager at Arcadia — I joined ENGIE Impact as a Product Designer in September 2024, was promoted to PM in March 2025, and came along when Arcadia acquired us. Still working with millions of lines of energy and sustainability data for Fortune 500 clients. I&apos;d been aiming for PM since before I could name it.
             </p>
             <p className="text-base leading-relaxed mb-5" style={{ color: "var(--text-muted)" }}>
               The transition from design to PM was gradual — accelerated, honestly, by AI. I kept finding myself less interested in the pixels and more interested in the decisions upstream: what to build, why, and for whom. AI made it easier to stay close to the craft while thinking at a higher level. I don&apos;t think of them as separate tracks anymore.

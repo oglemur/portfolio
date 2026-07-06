@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CaseStudyNav from "@/components/CaseStudyNav";
+import CaseStudyPager from "@/components/CaseStudyPager";
 
 const SECTIONS = [
   { id: "brief",       label: "Brief" },
@@ -373,16 +374,15 @@ export default function Aether() {
               HRI took it and kept building.
             </h2>
             <p className="text-base leading-relaxed max-w-2xl mb-4" style={{ color: "var(--text-muted)" }}>
-              Prototype testing with HRI researchers validated the core concept — Aether&apos;s
-              background research tool and AI-generated study plans were both recognized as
-              genuine workflow improvements, not just capstone polish. Researchers praised the
-              ability to go from imported literature to a structured, annotated knowledge base
-              without switching tools.
+              Prototype testing with HRI researchers validated the core concept. The background
+              research tool and the AI-generated study plans both landed as genuine workflow
+              improvements, not capstone polish — going from a pile of imported papers to a
+              structured, annotated knowledge base without ever leaving the tool.
             </p>
             <p className="text-base leading-relaxed max-w-2xl" style={{ color: "var(--text-muted)" }}>
-              After the capstone, Honda Research Institute&apos;s Ohio lab took ownership of Aether
-              and continued development internally. For a student project, that&apos;s the best
-              outcome you can ask for — someone wants to keep building the thing you made.
+              Then the real validation: after the capstone ended, Honda Research Institute&apos;s
+              Ohio lab took ownership of Aether and kept building it. For a student project,
+              there&apos;s no better outcome — the client liked the thing enough to make it theirs.
             </p>
           </div>
           <img
@@ -421,6 +421,8 @@ export default function Aether() {
             capstone showcase.
           </p>
         </motion.div>
+
+        <CaseStudyPager current="aether" />
 
       </main>
       <Footer />

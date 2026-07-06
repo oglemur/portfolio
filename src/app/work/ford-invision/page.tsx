@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CaseStudyNav from "@/components/CaseStudyNav";
+import CaseStudyPager from "@/components/CaseStudyPager";
 
 const SECTIONS = [
   { id: "brief",      label: "Brief" },
@@ -361,6 +362,8 @@ export default function FordInVision() {
             real motion.
           </p>
         </motion.div>
+
+        <CaseStudyPager current="ford-invision" />
 
       </main>
       <Footer />

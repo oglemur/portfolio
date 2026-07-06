@@ -117,7 +117,7 @@ When images are available (from old portfolio, Figma, etc.):
 | Project | Status | Case study |
 |---|---|---|
 | Ford inVision | Done | `/work/ford-invision` |
-| Aether (Honda × CMU) | Not started | — |
-| ENERGY STAR Benchmarking | Not started | — |
+| Aether (Honda × CMU) | Draft done — needs outcome numbers + user quotes | `/work/aether` |
+| ENERGY STAR Benchmarking | Draft done — polish pass pending | `/work/energy-star-benchmarking` |
 
 When starting a new case study, check if there's an old version at `christofk.webflow.io` first.
