@@ -3,15 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const CORRECT = process.env.NEXT_PUBLIC_ES_PASSWORD ?? "espm";
-
-const BOOT = [
-  { id: "pre1", text: "# trying to open the case study...",                dim: true  },
-  { id: "cmd1", text: "$ cat energy-star-case-study.md",                   dim: false },
-  { id: "pre2", text: "# oops. it's protected.",                           dim: true  },
-  { id: "err",  text: "cat: energy-star-case-study.md: Permission denied", dim: true  },
-  { id: "pre3", text: "# trying again with elevated permissions...",       dim: true  },
-  { id: "cmd2", text: "$ sudo cat energy-star-case-study.md",              dim: false },
+const buildBoot = (filename: string) => [
+  { id: "pre1", text: "# trying to open the case study...",       dim: true  },
+  { id: "cmd1", text: `$ cat ${filename}`,                        dim: false },
+  { id: "pre2", text: "# oops. it's protected.",                  dim: true  },
+  { id: "err",  text: `cat: ${filename}: Permission denied`,      dim: true  },
+  { id: "pre3", text: "# trying again with elevated permissions...", dim: true  },
+  { id: "cmd2", text: `$ sudo cat ${filename}`,                   dim: false },
 ];
 
 const DELAYS = [0, 200, 750, 950, 1500, 1700];
@@ -21,18 +19,29 @@ type Phase = "boot" | "prompt" | "denied" | "granted";
 const ACCENT     = "rgba(245,158,11,0.9)";
 const ACCENT_DIM = "rgba(245,158,11,0.38)";
 
-export default function PasswordGate({ children }: { children: React.ReactNode }) {
+export default function PasswordGate({
+  children,
+  password = process.env.NEXT_PUBLIC_ES_PASSWORD ?? "espm",
+  filename = "energy-star-case-study.md",
+  storageKey = "es-unlocked",
+}: {
+  children: React.ReactNode;
+  password?: string;
+  filename?: string;
+  storageKey?: string;
+}) {
   const [unlocked, setUnlocked] = useState(false);
   const [step,     setStep]     = useState(0);
   const [phase,    setPhase]    = useState<Phase>("boot");
   const [value,    setValue]    = useState("");
   const [attempts, setAttempts] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const BOOT = buildBoot(filename);
 
   // Restore session
   useEffect(() => {
-    if (sessionStorage.getItem("es-unlocked") === "1") setUnlocked(true);
-  }, []);
+    if (sessionStorage.getItem(storageKey) === "1") setUnlocked(true);
+  }, [storageKey]);
 
   // Animate boot lines in sequence
   useEffect(() => {
@@ -54,9 +63,9 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (value === CORRECT) {
+    if (value === password) {
       setPhase("granted");
-      sessionStorage.setItem("es-unlocked", "1");
+      sessionStorage.setItem(storageKey, "1");
       setTimeout(() => setUnlocked(true), 900);
     } else {
       setAttempts((n) => n + 1);
@@ -124,7 +133,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
               letterSpacing: "0.06em",
             }}
           >
-            energy-star-case-study.md
+            {filename}
           </span>
         </div>
 

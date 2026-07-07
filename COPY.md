@@ -119,5 +119,6 @@ When images are available (from old portfolio, Figma, etc.):
 | Ford inVision | Done | `/work/ford-invision` |
 | Aether (Honda × CMU) | Draft done — needs outcome numbers + user quotes | `/work/aether` |
 | ENERGY STAR Benchmarking | Draft done — polish pass pending | `/work/energy-star-benchmarking` |
+| Automating Bid Comparisons (Arcadia) | Draft done — password `ecm`; add analyst quote + Step-5 ranking screenshot when available | `/work/bid-comparisons` |
 
 When starting a new case study, check if there's an old version at `christofk.webflow.io` first.

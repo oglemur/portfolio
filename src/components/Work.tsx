@@ -22,9 +22,36 @@ const featured = {
   image: "/energy-star/featured-blurred.jpg",
 };
 
-const smallProjects = [
+const smallProjects: {
+  index: string;
+  tag: string;
+  title: string;
+  company: string;
+  year: string;
+  description: string;
+  metrics: string[];
+  accentRgb: string;
+  slug: string;
+  image: string;
+  hoverImage?: string;
+  locked?: boolean;
+}[] = [
   {
     index: "02",
+    tag: "Product Management",
+    title: "Automating Bid Comparisons",
+    company: "Arcadia",
+    year: "2026",
+    description:
+      "Energy suppliers all bid differently. Built the tool that compares them apples to apples — validated against 5 real deals, rankings preserved in all of them.",
+    metrics: ["0→1 MVP", "Energy pricing", "Validation"],
+    accentRgb: "45,212,191",
+    slug: "bid-comparisons",
+    image: "/soa/card-blurred.jpg",
+    locked: true,
+  },
+  {
+    index: "03",
     tag: "AI / Research Tool",
     title: "Aether",
     company: "Honda Research × CMU",
@@ -37,7 +64,7 @@ const smallProjects = [
     image: "/images/aether/hero.webp",
   },
   {
-    index: "03",
+    index: "04",
     tag: "Automotive / Concept",
     title: "Ford inVision",
     company: "Interaction Design",
@@ -242,6 +269,23 @@ function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
                 className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               />
             )}
+            {p.locked && (
+              <span
+                className="absolute top-3 right-3 z-10 text-xs font-mono flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+                style={{
+                  border: "1px solid rgba(255,251,240,0.14)",
+                  color: "rgba(255,251,240,0.65)",
+                  background: "rgba(11,10,8,0.55)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <svg width="8" height="10" viewBox="0 0 9 11" fill="none" aria-hidden>
+                  <rect x="1" y="4.5" width="7" height="6" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+                  <path d="M2.5 4.5V3a2 2 0 0 1 4 0v1.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round"/>
+                </svg>
+                Password protected
+              </span>
+            )}
             <div
               aria-hidden
               className="absolute inset-0 pointer-events-none"
@@ -329,8 +373,8 @@ export default function Work() {
         <FeaturedCard />
       </motion.div>
 
-      {/* Two smaller */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Smaller cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {smallProjects.map((p, i) => (
           <motion.div
             key={p.title}

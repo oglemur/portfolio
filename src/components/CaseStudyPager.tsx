@@ -12,6 +12,13 @@ const PROJECTS = [
     locked: true,
   },
   {
+    slug: "bid-comparisons",
+    title: "Automating Bid Comparisons",
+    tag: "Product Management · Arcadia",
+    accentRgb: "45,212,191",
+    locked: true,
+  },
+  {
     slug: "aether",
     title: "Aether",
     tag: "AI / Research Tool · Honda Research × CMU",

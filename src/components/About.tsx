@@ -119,6 +119,63 @@ const facts = [
   { label: "Michelin kitchens", value: "1 (Bolzano, Italy)" },
 ];
 
+const experience = [
+  {
+    company: "Arcadia",
+    role: "Product Manager",
+    dates: "2026 – Present",
+    location: "Boston, MA",
+    logo: "/logos/arcadia.png",
+    description:
+      "Came over in the ENGIE Impact acquisition. First product bridging the two companies' systems: automated energy bid comparisons, validated against five real deals.",
+  },
+  {
+    company: "ENGIE Impact",
+    role: "Product Designer → Product Manager",
+    dates: "Sep 2024 – 2026",
+    location: "Boston, MA",
+    logo: "/logos/engie-impact.png",
+    description:
+      "Joined as designer, promoted to PM in six months. Led 0→1 ENERGY STAR Benchmarking — 97% efficiency gain, Fortune 500 clients.",
+  },
+  {
+    company: "Honda Research Institute",
+    role: "Product Designer",
+    dates: "Jan – Aug 2024",
+    location: "Pittsburgh, PA",
+    logo: "/logos/honda-ri.png",
+    description:
+      "CMU capstone. Built Aether, an LLM-powered research assistant Honda's Ohio lab kept developing after handoff.",
+  },
+  {
+    company: "Bosch",
+    role: "Product Designer",
+    dates: "Jan – Apr 2024",
+    location: "Pittsburgh, PA",
+    logo: "/logos/bosch.png",
+    description:
+      "Home-robot concept for the elderly — from customer discovery to working concept.",
+  },
+  {
+    company: "ZTE Corporation",
+    role: "Product Design Intern",
+    dates: "Feb – Aug 2023",
+    location: "Shanghai, China",
+    logo: "/logos/zte.png",
+    description:
+      "AndroidOS experiences for nubia gaming smartphones. Generative-AI workflows for the global branding team.",
+  },
+  {
+    company: "Planetflip",
+    role: "UX Designer",
+    dates: "Jun – Sep 2022",
+    location: "La Jolla, CA",
+    logo: "/logos/planetflip.png",
+    description:
+      "Overhauled a Gen-Z climate-action app; gamification lifted engagement and community-building.",
+  },
+];
+
 const sideProjects = [
   {
     title: "North Station Display",
@@ -228,20 +285,73 @@ export default function About() {
         </motion.div>
       </div>
 
-      {/* Full story CTA — below both columns so it sits after the cards on mobile */}
+      {/* Experience — recruiter skim */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.3 }}
-        className="mb-28 -mt-20"
+        className="mb-28 -mt-8"
       >
+        <p className="text-xs tracking-[0.2em] uppercase mb-4 font-mono" style={{ color: "var(--accent)" }}>
+          Experience
+        </p>
+        <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-10" style={{ color: "var(--text)" }}>
+          Where I&apos;ve worked.
+        </h2>
+
+        <div className="flex flex-col">
+          {experience.map((job, i) => (
+            <div
+              key={`${job.company}-${job.role}`}
+              className="grid grid-cols-[44px_1fr] gap-x-5 relative pb-10 last:pb-0"
+            >
+              {/* Timeline connector */}
+              {i < experience.length - 1 && (
+                <span
+                  aria-hidden
+                  className="absolute left-[21px] top-[52px] bottom-0 w-px"
+                  style={{ background: "var(--border)" }}
+                />
+              )}
+
+              {/* Logo chip */}
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
+                style={{ background: "rgba(255,251,240,0.92)" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={job.logo} alt={`${job.company} logo`} className="w-7 h-7 object-contain" />
+              </div>
+
+              {/* Content */}
+              <div className="min-w-0 pt-0.5">
+                <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+                  <h3 className="text-base font-semibold tracking-tight" style={{ color: "var(--text)" }}>
+                    {job.role}
+                  </h3>
+                  <span className="text-xs font-mono tabular-nums shrink-0" style={{ color: "var(--text-muted)" }}>
+                    {job.dates}
+                  </span>
+                </div>
+                <p className="text-xs font-mono mb-2" style={{ color: "rgba(245,158,11,0.75)" }}>
+                  {job.company} · {job.location}
+                </p>
+                <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--text-muted)" }}>
+                  {job.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Full story CTA */}
         <Link
           href="/about"
-          className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
+          className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70 mt-10"
           style={{ color: "var(--accent)" }}
         >
-          The full story →
+          Read the full story →
         </Link>
       </motion.div>
 
