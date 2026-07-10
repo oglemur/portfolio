@@ -127,7 +127,7 @@ const experience = [
     location: "Boston, MA",
     logo: "/logos/arcadia.png",
     description:
-      "Came over in the ENGIE Impact acquisition. First product bridging the two companies' systems: automated energy bid comparisons, validated against five real deals.",
+      "Came over in the ENGIE Impact acquisition and shipped the first product bridging the two companies' systems: automated energy bid comparisons. Validated against five real deals — supplier rankings preserved in all of them.",
   },
   {
     company: "ENGIE Impact",
@@ -136,7 +136,7 @@ const experience = [
     location: "Boston, MA",
     logo: "/logos/engie-impact.png",
     description:
-      "Joined as designer, promoted to PM in six months. Led 0→1 ENERGY STAR Benchmarking — 97% efficiency gain, Fortune 500 clients.",
+      "Joined as a designer, promoted to PM in six months. Led 0→1 development of ENERGY STAR Benchmarking — a 97% efficiency gain for Fortune 500 clients — owning the full lifecycle from internal workflows to regulatory requirements.",
   },
   {
     company: "Honda Research Institute",
@@ -145,7 +145,7 @@ const experience = [
     location: "Pittsburgh, PA",
     logo: "/logos/honda-ri.png",
     description:
-      "CMU capstone. Built Aether, an LLM-powered research assistant Honda's Ohio lab kept developing after handoff.",
+      "CMU capstone with Honda Research Institute. Led interaction design on Aether, an LLM-powered research assistant — validated with Honda scientists, then handed to the Ohio lab, which kept building it.",
   },
   {
     company: "Bosch",
@@ -154,7 +154,7 @@ const experience = [
     location: "Pittsburgh, PA",
     logo: "/logos/bosch.png",
     description:
-      "Home-robot concept for the elderly — from customer discovery to working concept.",
+      "Spearheaded a home-robot concept designed for the elderly. Grounded in customer discovery — market research, surveys, and interviews with the aging population.",
   },
   {
     company: "ZTE Corporation",
@@ -163,7 +163,7 @@ const experience = [
     location: "Shanghai, China",
     logo: "/logos/zte.png",
     description:
-      "AndroidOS experiences for nubia gaming smartphones. Generative-AI workflows for the global branding team.",
+      "Designed AndroidOS experiences and future feature roadmaps for nubia gaming smartphones. Built generative-AI advertising workflows for the branding director of Africa and Europe.",
   },
   {
     company: "Planetflip",
@@ -172,7 +172,7 @@ const experience = [
     location: "La Jolla, CA",
     logo: "/logos/planetflip.png",
     description:
-      "Overhauled a Gen-Z climate-action app; gamification lifted engagement and community-building.",
+      "Overhauled a climate-action app aimed at mass community action for Gen Z. Integrated gamification features that lifted engagement and community-building.",
   },
 ];
 
@@ -304,28 +304,28 @@ export default function About() {
           {experience.map((job, i) => (
             <div
               key={`${job.company}-${job.role}`}
-              className="grid grid-cols-[44px_1fr] gap-x-5 relative pb-10 last:pb-0"
+              className="grid grid-cols-[56px_1fr] gap-x-5 relative pb-10 last:pb-0"
             >
               {/* Timeline connector */}
               {i < experience.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute left-[21px] top-[52px] bottom-0 w-px"
+                  className="absolute left-[27px] top-[64px] bottom-0 w-px"
                   style={{ background: "var(--border)" }}
                 />
               )}
 
               {/* Logo chip */}
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
+                className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
                 style={{ background: "rgba(255,251,240,0.92)" }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={job.logo} alt={`${job.company} logo`} className="w-7 h-7 object-contain" />
+                <img src={job.logo} alt={`${job.company} logo`} className="w-11 h-11 object-contain" />
               </div>
 
               {/* Content */}
-              <div className="min-w-0 pt-0.5">
+              <div className="min-w-0 pt-1">
                 <div className="flex items-baseline justify-between gap-4 flex-wrap mb-1">
                   <h3 className="text-base font-semibold tracking-tight" style={{ color: "var(--text)" }}>
                     {job.role}
@@ -337,7 +337,7 @@ export default function About() {
                 <p className="text-xs font-mono mb-2" style={{ color: "rgba(245,158,11,0.75)" }}>
                   {job.company} · {job.location}
                 </p>
-                <p className="text-sm leading-relaxed max-w-xl" style={{ color: "var(--text-muted)" }}>
+                <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--text-muted)" }}>
                   {job.description}
                 </p>
               </div>

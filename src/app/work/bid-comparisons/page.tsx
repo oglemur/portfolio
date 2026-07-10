@@ -33,11 +33,11 @@ const STATS = [
 ];
 
 const VALIDATION_DEALS = [
-  { deal: "Evergreen Senior Living", meters: "6",  utilities: "3", baseline: "+2.0%", verdict: "Pass*", offerings: "12/12" },
-  { deal: "PGW Auto Glass",          meters: "5",  utilities: "2", baseline: "+0.2%", verdict: "Pass",  offerings: "9/9" },
-  { deal: "Grifols",                 meters: "14", utilities: "6", baseline: "+4.5%", verdict: "Fail",  offerings: "12/12" },
-  { deal: "Fisher Auto Parts",       meters: "88", utilities: "7", baseline: "−3.1%", verdict: "Fail",  offerings: "9/9" },
-  { deal: "Kennametal",              meters: "8",  utilities: "2", baseline: "−1.8%", verdict: "Pass",  offerings: "16/16" },
+  { deal: "Senior-living portfolio",     meters: "6",  utilities: "3", baseline: "+2.0%", verdict: "Pass*", offerings: "12/12" },
+  { deal: "Auto-glass distributor",      meters: "5",  utilities: "2", baseline: "+0.2%", verdict: "Pass",  offerings: "9/9" },
+  { deal: "Pharma manufacturer",         meters: "14", utilities: "6", baseline: "+4.5%", verdict: "Fail",  offerings: "12/12" },
+  { deal: "Auto-parts retailer (100+)",  meters: "88", utilities: "7", baseline: "−3.1%", verdict: "Fail",  offerings: "9/9" },
+  { deal: "Industrial manufacturer",     meters: "8",  utilities: "2", baseline: "−1.8%", verdict: "Pass",  offerings: "16/16" },
 ];
 
 const KEY_MOMENTS = [
