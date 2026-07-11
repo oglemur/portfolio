@@ -87,11 +87,9 @@ const FACTS = [
   { label: "Languages", value: "EN · FR · ZH · DE · MG" },
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
-  { label: "Education", value: "MHCI, Carnegie Mellon" },
+  { label: "Education", value: "CMU, UCSD" },
   { label: "Currently", value: "PM, Arcadia" },
-  { label: "Promoted", value: "March 2025" },
   { label: "Michelin kitchens", value: "1 (Bolzano, Italy)" },
-  { label: "Favorite city", value: "Still deciding" },
 ];
 
 export default function About() {
@@ -211,7 +209,7 @@ export default function About() {
             Things I build for fun.
           </h2>
           <p className="text-base leading-relaxed max-w-2xl mb-10" style={{ color: "var(--text-muted)" }}>
-            Not projects. Not portfolio pieces. Just things I wanted to exist that didn&apos;t.
+            No client, no deadline. Just things I wanted to exist that didn&apos;t.
             Mostly Python, mostly useful only to me, occasionally impressive at parties.
           </p>
 
@@ -275,7 +273,7 @@ export default function About() {
         {/* CTA */}
         <motion.div
           {...fade()}
-          className="mb-28 rounded-2xl p-10 sm:p-14 text-center"
+          className="mb-10 rounded-2xl p-10 sm:p-14 text-center"
           style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
         >
           <p className="text-2xl font-semibold tracking-tight mb-3" style={{ color: "var(--text)" }}>

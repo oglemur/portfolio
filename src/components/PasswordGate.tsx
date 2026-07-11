@@ -270,14 +270,17 @@ function PromptLine({
           flexShrink: 0,
         }}
       />
-      {/* Invisible but focusable input */}
+      {/* Invisible but focusable input — type="text" so browsers don't
+          autofill a saved password into it (masking is done by the dots) */}
       <input
         ref={inputRef}
-        type="password"
+        type="text"
+        name="terminal-command"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         autoComplete="off"
         autoCapitalize="none"
+        autoCorrect="off"
         spellCheck={false}
         style={{
           position: "absolute",

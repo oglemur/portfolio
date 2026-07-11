@@ -114,7 +114,7 @@ const facts = [
   { label: "Languages", value: "EN · FR · ZH · DE · MG" },
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
-  { label: "Education", value: "MHCI, Carnegie Mellon" },
+  { label: "Education", value: "CMU, UCSD" },
   { label: "Currently", value: "PM, Arcadia" },
   { label: "Michelin kitchens", value: "1 (Bolzano, Italy)" },
 ];
@@ -255,9 +255,13 @@ export default function About() {
             </Highlight>
             , build AI tools on weekends, and speak five languages — rarely in the same sentence.
           </p>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
-            PM at Arcadia (by way of the ENGIE Impact acquisition), working with millions of energy data points for Fortune 500 clients.
-          </p>
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
+            style={{ color: "var(--accent)" }}
+          >
+            Read the full story →
+          </Link>
         </motion.div>
 
         {/* Stats */}
@@ -345,14 +349,6 @@ export default function About() {
           ))}
         </div>
 
-        {/* Full story CTA */}
-        <Link
-          href="/about"
-          className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70 mt-10"
-          style={{ color: "var(--accent)" }}
-        >
-          Read the full story →
-        </Link>
       </motion.div>
 
       {/* Side Projects */}
