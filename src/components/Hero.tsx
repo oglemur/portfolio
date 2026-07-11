@@ -440,7 +440,7 @@ export default function Hero() {
       </div>
 
       {/* Main text */}
-      <div className="hero-text-container absolute inset-0 flex flex-col justify-center px-8 sm:px-12 pt-20 z-10 max-w-3xl">
+      <div className="hero-text-container absolute inset-0 flex flex-col justify-center pr-8 sm:pr-12 pt-20 z-10 max-w-xl">
       <div className="hero-text-glass">
 
         {/* Language cycling */}

@@ -346,7 +346,7 @@ function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
 
 export default function Work() {
   return (
-    <section id="work" className="py-28 px-8 sm:px-12 max-w-6xl mx-auto">
+    <section id="work" className="pt-16 pb-28 px-8 sm:px-12 max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}

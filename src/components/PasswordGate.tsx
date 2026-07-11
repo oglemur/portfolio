@@ -12,7 +12,7 @@ const buildBoot = (filename: string) => [
   { id: "cmd2", text: `$ sudo cat ${filename}`,                   dim: false },
 ];
 
-const DELAYS = [0, 200, 750, 950, 1500, 1700];
+const DELAYS = [0, 130, 490, 620, 975, 1100];
 
 type Phase = "boot" | "prompt" | "denied" | "granted";
 
@@ -49,7 +49,7 @@ export default function PasswordGate({
     DELAYS.forEach((d, i) => {
       setTimeout(() => {
         setStep(i + 1);
-        if (i === DELAYS.length - 1) setTimeout(() => setPhase("prompt"), 350);
+        if (i === DELAYS.length - 1) setTimeout(() => setPhase("prompt"), 230);
       }, d);
     });
   }, [phase]);
@@ -66,7 +66,7 @@ export default function PasswordGate({
     if (value === password) {
       setPhase("granted");
       sessionStorage.setItem(storageKey, "1");
-      setTimeout(() => setUnlocked(true), 900);
+      setTimeout(() => setUnlocked(true), 600);
     } else {
       setAttempts((n) => n + 1);
       setPhase("denied");

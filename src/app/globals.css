@@ -116,9 +116,24 @@ body {
   scroll-margin-top: 80px;
 }
 
-/* Hero text glass — gradient handles contrast on mobile, not needed */
+/* Hero text glass — surface-toned card, attached to the left window edge */
 .hero-text-glass {
-  background: transparent;
+  background: rgba(20, 18, 16, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 1rem 1rem 0;
+  padding: 2.5rem 2.5rem 2.5rem 3rem;
+}
+
+@media (max-width: 639px) {
+  /* Full-bleed on mobile */
+  .hero-text-glass {
+    border-right: none;
+    border-radius: 0;
+    padding: 1.5rem 2rem;
+  }
 }
 
 /* Mobile stacked hero layout */
@@ -142,6 +157,7 @@ body {
     max-width: 100% !important;
     justify-content: flex-start !important;
     padding-top: 20px !important;
+    padding-right: 0 !important;
   }
 
   /* Gradient: fades globe into dark, solid from ~50% down — matches bg so no visible seam */
