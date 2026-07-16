@@ -13,6 +13,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["next", "start", "-p", "3999"],
       "port": 3999
+    },
+    {
+      "name": "quinn-murphy-photo",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "/Users/christofkopera/Documents/quinn-murphy-photo"],
+      "port": 4321
     }
   ]
 }

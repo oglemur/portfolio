@@ -122,6 +122,7 @@ const facts = [
 const experience = [
   {
     company: "Arcadia",
+    url: "https://www.arcadia.com/",
     role: "Product Manager",
     dates: "2026 – Present",
     location: "Boston, MA",
@@ -131,6 +132,7 @@ const experience = [
   },
   {
     company: "ENGIE Impact",
+    url: "https://www.engieimpact.com/",
     role: "Product Designer → Product Manager",
     dates: "Sep 2024 – 2026",
     location: "Boston, MA",
@@ -140,6 +142,7 @@ const experience = [
   },
   {
     company: "Honda Research Institute",
+    url: "https://usa.honda-ri.com/",
     role: "Product Designer",
     dates: "Jan – Aug 2024",
     location: "Pittsburgh, PA",
@@ -149,6 +152,7 @@ const experience = [
   },
   {
     company: "Bosch",
+    url: "https://www.bosch.com/",
     role: "Product Designer",
     dates: "Jan – Apr 2024",
     location: "Pittsburgh, PA",
@@ -158,6 +162,7 @@ const experience = [
   },
   {
     company: "ZTE Corporation",
+    url: "https://www.zte.com.cn/global/",
     role: "Product Design Intern",
     dates: "Feb – Aug 2023",
     location: "Shanghai, China",
@@ -167,6 +172,7 @@ const experience = [
   },
   {
     company: "Planetflip",
+    url: "https://planetflip.weebly.com/",
     role: "UX Designer",
     dates: "Jun – Sep 2022",
     location: "La Jolla, CA",
@@ -339,7 +345,16 @@ export default function About() {
                   </span>
                 </div>
                 <p className="text-xs font-mono mb-2" style={{ color: "rgba(245,158,11,0.75)" }}>
-                  {job.company} · {job.location}
+                  <a
+                    href={job.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity hover:opacity-70"
+                    style={{ borderBottom: "1px dotted rgba(245,158,11,0.4)" }}
+                  >
+                    {job.company}
+                  </a>
+                  {" "}· {job.location}
                 </p>
                 <p className="text-sm leading-relaxed max-w-3xl" style={{ color: "var(--text-muted)" }}>
                   {job.description}
