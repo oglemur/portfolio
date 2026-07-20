@@ -111,7 +111,7 @@ function Highlight({
 }
 
 const facts = [
-  { label: "Languages", value: "EN · FR · ZH · DE · MG" },
+  { label: "Languages", value: "English · Français · 中文 · Deutsch · Malagasy" },
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
   { label: "Education", value: "CMU, UCSD" },
@@ -217,9 +217,9 @@ function GlassCard({
 
 export default function About() {
   return (
-    <section className="py-28 px-8 sm:px-12 max-w-6xl mx-auto">
+    <section className="pt-12 pb-28 px-8 sm:px-12 max-w-6xl mx-auto">
       {/* Divider */}
-      <div className="mb-28" style={{ height: "1px", background: "var(--border)" }} />
+      <div className="mb-14" style={{ height: "1px", background: "var(--border)" }} />
 
       {/* Bio + stats */}
       <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-28">

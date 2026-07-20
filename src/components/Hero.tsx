@@ -21,11 +21,11 @@ const CITIES = [
 ];
 
 const LANGUAGES = [
-  { code: "EN", greeting: "Hello," },
-  { code: "FR", greeting: "Bonjour," },
-  { code: "ZH", greeting: "你好，" },
-  { code: "DE", greeting: "Hallo," },
-  { code: "MG", greeting: "Salama," },
+  { code: "English",  greeting: "Hello," },
+  { code: "Français", greeting: "Bonjour," },
+  { code: "中文",      greeting: "你好，" },
+  { code: "Deutsch",  greeting: "Hallo," },
+  { code: "Malagasy", greeting: "Salama," },
 ];
 
 // phi = -π/2 - lon_rad puts the city at canvas center, facing the viewer
@@ -453,7 +453,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.2 }}
-                className="text-xs font-mono tracking-[0.25em] uppercase"
+                className="text-xs font-mono tracking-[0.15em]"
                 style={{ color: "var(--accent)" }}
               >
                 {activeLang.code}

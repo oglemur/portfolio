@@ -218,22 +218,18 @@ export default function PasswordGate({
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 1.8 }}
-        onClick={() => window.location.href = "/"}
+        transition={{ duration: 0.4, delay: 1.2 }}
+        onClick={() => (window.location.href = "/#work")}
+        className="group inline-flex items-center gap-2.5 text-sm font-semibold font-mono tracking-[0.1em] uppercase px-4 py-2.5 rounded-lg transition-colors"
         style={{
-          fontFamily: "var(--font-geist-mono, monospace)",
-          fontSize: "12px",
-          color: "rgba(255,251,240,0.28)",
-          background: "none",
-          border: "none",
+          color: ACCENT,
+          border: "1px solid rgba(245,158,11,0.3)",
+          background: "rgba(245,158,11,0.07)",
           cursor: "pointer",
-          letterSpacing: "0.06em",
-          padding: "4px 0",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(255,251,240,0.55)")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,251,240,0.28)")}
       >
-        ← go back
+        <span className="text-base leading-none transition-transform group-hover:-translate-x-1" aria-hidden>←</span>
+        Selected Work
       </motion.button>
     </div>
   );

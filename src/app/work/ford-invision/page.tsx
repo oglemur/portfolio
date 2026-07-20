@@ -72,10 +72,11 @@ export default function FordInVision() {
         <motion.div {...fade()} className="mb-16">
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 text-xs font-mono tracking-[0.15em] uppercase transition-opacity hover:opacity-60"
-            style={{ color: "var(--accent)" }}
+            className="group inline-flex items-center gap-2.5 text-sm font-semibold font-mono tracking-[0.1em] uppercase px-4 py-2.5 rounded-lg transition-colors"
+            style={{ color: "var(--accent)", border: "1px solid rgba(245,158,11,0.3)", background: "rgba(245,158,11,0.07)" }}
           >
-            ← Selected Work
+            <span className="text-base leading-none transition-transform group-hover:-translate-x-1" aria-hidden>←</span>
+            Selected Work
           </Link>
         </motion.div>
 

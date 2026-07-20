@@ -84,7 +84,7 @@ const BUILDS = [
 ];
 
 const FACTS = [
-  { label: "Languages", value: "EN · FR · ZH · DE · MG" },
+  { label: "Languages", value: "English · Français · 中文 · Deutsch · Malagasy" },
   { label: "Cities lived in", value: "13" },
   { label: "Continents", value: "4" },
   { label: "Education", value: "CMU, UCSD" },
@@ -102,10 +102,11 @@ export default function About() {
         <motion.div {...fade()} className="mb-16">
           <Link
             href="/#about"
-            className="inline-flex items-center gap-2 text-xs font-mono tracking-[0.15em] uppercase transition-opacity hover:opacity-60"
-            style={{ color: "var(--accent)" }}
+            className="group inline-flex items-center gap-2.5 text-sm font-semibold font-mono tracking-[0.1em] uppercase px-4 py-2.5 rounded-lg transition-colors"
+            style={{ color: "var(--accent)", border: "1px solid rgba(245,158,11,0.3)", background: "rgba(245,158,11,0.07)" }}
           >
-            ← Home
+            <span className="text-base leading-none transition-transform group-hover:-translate-x-1" aria-hidden>←</span>
+            Home
           </Link>
         </motion.div>
 
