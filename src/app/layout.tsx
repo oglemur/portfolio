@@ -59,6 +59,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <Analytics />
       </body>
     </html>
   );
