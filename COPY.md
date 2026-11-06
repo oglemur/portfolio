@@ -120,5 +120,6 @@ When images are available (from old portfolio, Figma, etc.):
 | Aether (Honda × CMU) | Draft done — needs outcome numbers + user quotes | `/work/aether` |
 | ENERGY STAR Benchmarking | Draft done — polish pass pending | `/work/energy-star-benchmarking` |
 | Automating Bid Comparisons (Arcadia) | Draft done — password `ecm`; add analyst quote + Step-5 ranking screenshot when available | `/work/bid-comparisons` |
+| Tariff Optimization (Arcadia) | Draft — password `rmo`; featured on homepage | `/work/tariff-optimization` |
 
 When starting a new case study, check if there's an old version at `christofk.webflow.io` first.

@@ -1,28 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 
-const featured = {
-  index: "01",
-  tag: "Product Management",
-  title: "ENERGY STAR Benchmarking",
-  company: "ENGIE Impact → Arcadia",
-  year: "2025",
-  description:
-    "Turned a legacy SQL script into a cloud-native SaaS product. 0→1 ownership across design, engineering, and clients.",
-  stats: [
-    { value: "97%", label: "time saved" },
-    { value: "0→1", label: "ownership" },
-    { value: "F500", label: "clients" },
-  ],
-  accentRgb: "245,158,11",
-  slug: "energy-star-benchmarking",
-  image: "/energy-star/featured-blurred.jpg",
-};
-
-const smallProjects: {
+type Project = {
   index: string;
   tag: string;
   title: string;
@@ -35,7 +18,24 @@ const smallProjects: {
   image: string;
   hoverImage?: string;
   locked?: boolean;
-}[] = [
+};
+
+/** Every case study, in display order. The first is featured on the homepage. */
+export const PROJECTS: Project[] = [
+  {
+    index: "01",
+    tag: "Product Management",
+    title: "Tariff Optimization",
+    company: "Arcadia",
+    year: "2026",
+    description:
+      "Moved a $14M-a-year manual tariff service onto software that had never handled more than 100 meters. Built for 32,822, with AI as my prototyping partner.",
+    metrics: ["32,822 meters", "AI-built prototype", "Post-acquisition"],
+    accentRgb: "245,158,11",
+    slug: "tariff-optimization",
+    image: "/tariff/card.jpg",
+    locked: true,
+  },
   {
     index: "02",
     tag: "Product Management",
@@ -47,11 +47,25 @@ const smallProjects: {
     metrics: ["0→1 MVP", "Energy pricing", "Validation"],
     accentRgb: "45,212,191",
     slug: "bid-comparisons",
-    image: "/soa/card-blurred.jpg",
+    image: "/soa/card.jpg",
     locked: true,
   },
   {
     index: "03",
+    tag: "Product Management",
+    title: "ENERGY STAR Benchmarking",
+    company: "ENGIE Impact → Arcadia",
+    year: "2025",
+    description:
+      "Turned a legacy SQL script into a cloud-native SaaS product. 0→1 ownership across design, engineering, and clients.",
+    metrics: ["97% time saved", "0→1 ownership", "F500 clients"],
+    accentRgb: "245,158,11",
+    slug: "energy-star-benchmarking",
+    image: "/energy-star/card.jpg",
+    locked: true,
+  },
+  {
+    index: "04",
     tag: "AI / Research Tool",
     title: "Aether",
     company: "Honda Research × CMU",
@@ -64,7 +78,7 @@ const smallProjects: {
     image: "/images/aether/hero.webp",
   },
   {
-    index: "04",
+    index: "05",
     tag: "Automotive / Concept",
     title: "Ford inVision",
     company: "Interaction Design",
@@ -78,6 +92,20 @@ const smallProjects: {
     hoverImage: "/images/ford/navigation.gif",
   },
 ];
+
+const featured = {
+  ...PROJECTS[0],
+  stats: [
+    { value: "32,822", label: "meters, up from 100" },
+    { value: "~2 mo",  label: "two processes merged" },
+    { value: "1 wk",   label: "AI-built backup plan" },
+  ],
+};
+
+/** Smaller homepage cards. Ford inVision lives on the /work gallery only. */
+const smallProjects = PROJECTS.filter((p) =>
+  ["bid-comparisons", "energy-star-benchmarking", "aether"].includes(p.slug)
+);
 
 function GlassCard({
   children,
@@ -117,8 +145,8 @@ function TiltCard({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div style={{ perspective: 1000 }} onMouseMove={onMove} onMouseLeave={onLeave}>
-      <motion.div style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
+    <div className="h-full" style={{ perspective: 1000 }} onMouseMove={onMove} onMouseLeave={onLeave}>
+      <motion.div className="h-full" style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
         {children}
       </motion.div>
     </div>
@@ -163,7 +191,7 @@ function FeaturedCard() {
           <div className="relative order-first md:order-last md:col-span-7 min-h-[220px] md:min-h-[420px] overflow-hidden">
             <Image
               src={p.image}
-              alt="ENERGY STAR Benchmarking product interface (blurred)"
+              alt={`${p.title} product interface`}
               fill
               sizes="(max-width: 768px) 100vw, 60vw"
               className="object-cover object-left-top transition-transform duration-700 group-hover:scale-[1.04]"
@@ -236,7 +264,7 @@ function FeaturedCard() {
   );
 }
 
-function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
+export function SmallCard({ p }: { p: Project }) {
   return (
     <TiltCard>
       <MagneticButton
@@ -244,13 +272,14 @@ function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
         href={`/work/${p.slug}`}
         dotColor={`rgba(${p.accentRgb}, 0.95)`}
         glowSize={160}
+        fullHeight
       >
         <GlassCard
-          className="group rounded-2xl relative overflow-hidden h-full"
+          className="group rounded-2xl relative overflow-hidden h-full flex flex-col"
           style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
         >
           {/* Image */}
-          <div className="relative aspect-[16/10] overflow-hidden">
+          <div className="relative aspect-[16/10] overflow-hidden shrink-0">
             <Image
               src={p.image}
               alt={`${p.title} preview`}
@@ -296,7 +325,7 @@ function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
           </div>
 
           {/* Text */}
-          <div className="relative p-6 pt-4">
+          <div className="relative p-6 pt-4 flex-1 flex flex-col">
             {/* Watermark index */}
             <span
               aria-hidden
@@ -322,7 +351,7 @@ function SmallCard({ p }: { p: (typeof smallProjects)[number] }) {
             <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-muted)" }}>
               {p.description}
             </p>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap mt-auto">
               {p.metrics.map((m) => (
                 <span
                   key={m}
@@ -387,6 +416,23 @@ export default function Work() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
+        className="mt-10 flex justify-center"
+      >
+        <Link
+          href="/work"
+          className="group inline-flex items-center gap-2.5 text-sm font-semibold font-mono tracking-[0.1em] uppercase px-5 py-3 rounded-lg transition-colors"
+          style={{ color: "var(--accent)", border: "1px solid rgba(245,158,11,0.3)", background: "rgba(245,158,11,0.07)" }}
+        >
+          View all work
+          <span className="text-base leading-none transition-transform group-hover:translate-x-1" aria-hidden>→</span>
+        </Link>
+      </motion.div>
     </section>
   );
 }

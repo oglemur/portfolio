@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 
 const PROJECTS = [
   {
-    slug: "energy-star-benchmarking",
-    title: "ENERGY STAR Benchmarking",
-    tag: "Product Management · ENGIE Impact → Arcadia",
+    slug: "tariff-optimization",
+    title: "Tariff Optimization",
+    tag: "Product Management · Arcadia",
     accentRgb: "245,158,11",
     locked: true,
   },
@@ -16,6 +16,13 @@ const PROJECTS = [
     title: "Automating Bid Comparisons",
     tag: "Product Management · Arcadia",
     accentRgb: "45,212,191",
+    locked: true,
+  },
+  {
+    slug: "energy-star-benchmarking",
+    title: "ENERGY STAR Benchmarking",
+    tag: "Product Management · ENGIE Impact → Arcadia",
+    accentRgb: "245,158,11",
     locked: true,
   },
   {

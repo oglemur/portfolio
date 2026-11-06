@@ -125,7 +125,7 @@ export default function About() {
           {/* Headshot */}
           <motion.div {...fade(0.08)}>
             <img
-              src="/images/christof about photo.JPG"
+              src="/images/christof-about.jpg"
               alt="Christof Kopera"
               className="rounded-2xl w-full object-cover"
               style={{ aspectRatio: "3 / 4" }}

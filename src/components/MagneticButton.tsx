@@ -12,6 +12,7 @@ interface Props {
   dotColor?: string;
   glowSize?: number;
   block?: boolean;
+  fullHeight?: boolean;
 }
 
 export default function MagneticButton({
@@ -23,6 +24,7 @@ export default function MagneticButton({
   dotColor = "rgba(255,255,255,0.95)",
   glowSize = 90,
   block = false,
+  fullHeight = false,
 }: Props) {
   const [hovered, setHovered] = useState(false);
 
@@ -49,7 +51,7 @@ export default function MagneticButton({
     <a
       href={href}
       className={className}
-      style={{ ...style, cursor: "none", display: "block" }}
+      style={{ ...style, cursor: "none", display: "block", ...(fullHeight ? { height: "100%" } : {}) }}
       onMouseEnter={(e) => e.preventDefault()}
     >
       {children}
@@ -70,7 +72,7 @@ export default function MagneticButton({
 
   return (
     <div
-      style={{ position: "relative", display: block ? "block" : "inline-block", overflow: "hidden", cursor: "none" }}
+      style={{ position: "relative", display: block ? "block" : "inline-block", overflow: "hidden", cursor: "none", ...(fullHeight ? { height: "100%" } : {}) }}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setHovered(false)}
