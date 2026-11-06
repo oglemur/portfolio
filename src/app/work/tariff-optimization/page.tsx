@@ -122,7 +122,7 @@ function H2({ children, className = "mb-6" }: { children: React.ReactNode; class
 }
 
 function Body({ children, className = "mb-10" }: { children: React.ReactNode; className?: string }) {
-  return <p className={`text-base leading-relaxed max-w-2xl ${className}`} style={{ color: SOFT }}>{children}</p>;
+  return <p className={`text-base leading-relaxed ${className}`} style={{ color: SOFT }}>{children}</p>;
 }
 
 function Arrow({ down = false }: { down?: boolean }) {
@@ -650,7 +650,7 @@ export default function TariffOptimization() {
           <h1 className="text-5xl sm:text-7xl font-bold tracking-tight mb-6" style={{ color: "var(--text)" }}>
             Tariff Optimization
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: SOFT }}>
+          <p className="text-lg leading-relaxed" style={{ color: SOFT }}>
             Moving a $14M-a-year manual service onto software that had never handled more than 100
             meters. Built for 32,822 in three months, with AI as my prototyping and analysis
             partner.
@@ -710,7 +710,7 @@ export default function TariffOptimization() {
         <motion.div id="problem" {...fade()} className="mb-28">
           <Eyebrow>Problem</Eyebrow>
           <blockquote
-            className="text-2xl sm:text-3xl font-semibold leading-snug mb-8 max-w-3xl"
+            className="text-2xl sm:text-3xl font-semibold leading-snug mb-8"
             style={{ color: "var(--text)", borderLeft: "2px solid var(--accent)", paddingLeft: "1.25rem" }}
           >
             Nobody can price every tariff for every meter by hand. So RMO didn&apos;t. Shortcuts decided
