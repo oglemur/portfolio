@@ -497,6 +497,57 @@ const Step = ({ label, big, sub, tone }: { label: string; big: string; sub: stri
   </div>
 );
 
+function ProcStep({ n, t, s, hot = false }: { n: string; t: string; s: string; hot?: boolean }) {
+  return (
+    <div
+      className="rounded-xl p-4 h-full"
+      style={{ border: `1px solid ${hot ? "rgba(245,158,11,0.55)" : "var(--border)"}`, background: hot ? "rgba(245,158,11,0.07)" : "var(--bg)" }}
+    >
+      <p className="text-xs font-mono mb-1.5" style={{ color: "var(--accent)" }}>{n}</p>
+      <p className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>{t}</p>
+      <p className="text-xs leading-snug" style={{ color: SOFT }}>{s}</p>
+    </div>
+  );
+}
+
+/** How the work moved: discovery to handoff, with the prototype loop in the middle. */
+function FeedbackCycles() {
+  return (
+    <div className="rounded-2xl p-6 sm:p-8" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
+      <p className="text-base font-semibold mb-6" style={{ color: "var(--text)" }}>Short feedback cycles, before engineering wrote a line.</p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_2.3fr_auto_1fr] items-stretch">
+        <ProcStep n="01" t="Discovery" s="42-meter study, rate book teardown, analyst pain points" />
+        <div className="hidden lg:flex"><Arrow /></div><div className="lg:hidden"><Arrow down /></div>
+
+        <div className="rounded-xl p-3" style={{ border: "1px dashed rgba(245,158,11,0.55)" }}>
+          <p className="text-xs font-mono mb-2 px-1 flex items-center gap-1.5" style={{ color: "var(--accent)" }}>
+            <Icon name="cycle" size={14} /> looped a few times
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-stretch">
+            <ProcStep n="02" t="Prototype" s="clickable, on 32,301 real meters" hot />
+            <div className="flex items-center justify-center px-2 py-1 text-xl" style={{ color: "var(--accent)" }} aria-hidden>⇄</div>
+            <ProcStep n="03" t="Early user feedback" s="RMO analysts click through it and push back" hot />
+          </div>
+        </div>
+
+        <div className="hidden lg:flex"><Arrow /></div><div className="lg:hidden"><Arrow down /></div>
+        <ProcStep n="04" t="Engineering feasibility" s="what can production build, and what's faked?" />
+      </div>
+
+      <Arrow down />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch">
+        <ProcStep n="05" t="Leadership validation" s="backtests and real numbers, not slides" />
+        <div className="hidden lg:flex"><Arrow /></div><div className="lg:hidden"><Arrow down /></div>
+        <ProcStep n="06" t="Approval" s="scope and go/no-go signed off" />
+        <div className="hidden lg:flex"><Arrow /></div><div className="lg:hidden"><Arrow down /></div>
+        <ProcStep n="07" t="Handoff to engineering" s="the decision log becomes the build spec" hot />
+      </div>
+    </div>
+  );
+}
+
 /** Raw claim vs reviewed: why review has to be fast at saying no. */
 function RawVsReviewed() {
   return (
@@ -762,6 +813,7 @@ export default function TariffOptimization() {
             With Claude Code I built a working prototype on real data and settled questions with
             numbers. Engineering built the production app from it.
           </Body>
+          <div className="mb-10"><FeedbackCycles /></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
             {AI_WORKFLOW.map((w) => (
               <div key={w.label} className="rounded-2xl p-6" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
