@@ -10,15 +10,15 @@ import PasswordGate from "@/components/PasswordGate";
 
 const SECTIONS = [
   { id: "how-tariffs-work", label: "How It Works" },
-  { id: "brief",            label: "Brief" },
+  { id: "brief",            label: "Why Now" },
   { id: "problem",          label: "Problem" },
   { id: "reframe",          label: "The Reframe" },
   { id: "loop",             label: "The Loop" },
   { id: "how",              label: "How I Worked" },
   { id: "solution",         label: "Solution" },
   { id: "key-decisions",    label: "Key Decisions" },
-  { id: "contingency",      label: "Contingency" },
-  { id: "outcome",          label: "Outcome" },
+  { id: "contingency",      label: "Hybrid Approach" },
+  { id: "outcome",          label: "Today" },
 ];
 
 const IMG = "/tariff";
@@ -36,7 +36,7 @@ const fade = (delay = 0) => ({
 const STATS = [
   { value: "100 → 32,822", label: "meters per delivery: the old record vs batch 1" },
   { value: "~2 months",    label: "to merge 3 databases, 2 processes and 15 years of practice into one" },
-  { value: "~1 week",      label: "to build the AI-run backup plan" },
+  { value: "~1 week",      label: "to build the AI-run hybrid approach" },
 ];
 
 // Illustrative: 120,000 kWh/yr, 25 kW peak, mostly daytime use.
@@ -696,7 +696,7 @@ export default function TariffOptimization() {
 
         {/* ── BRIEF ── */}
         <motion.div id="brief" {...fade()} className="mb-28">
-          <Eyebrow>Brief</Eyebrow>
+          <Eyebrow>Why Now</Eyebrow>
           <H2>An acquisition left us with two halves of one product.</H2>
           <Body className="mb-8">
             Arcadia acquired ENGIE Impact, and with it RMO (Rate Monitoring and Optimization). One side had the customers and the expertise. The other
@@ -862,13 +862,13 @@ export default function TariffOptimization() {
 
         {/* ── CONTINGENCY ── */}
         <motion.div id="contingency" {...fade()} className="mb-28">
-          <Eyebrow>Contingency</Eyebrow>
-          <H2>A backup plan built and run with AI.</H2>
+          <Eyebrow>Hybrid Approach</Eyebrow>
+          <H2>A hybrid approach, built and run with AI.</H2>
           <Body className="mb-8">
-            In October it wasn&apos;t clear the app could review 32,000 meters by 1 Nov. So I set a
-            go/no-go date and built a second path in about a week: Claude Code to write it, Claude
-            skills to run it. Analysts don&apos;t touch code. Every call they make feeds the same loop
-            as the app.
+            Some utilities&apos; reviews were due before the app could be ready. So I built a hybrid
+            approach in about a week: the app prices everything, and analysts review in Excel
+            through two Claude skills. Claude Code to write it, Claude skills to run it. Analysts
+            don&apos;t touch code, and every call they make feeds the same loop as the app.
           </Body>
           <div className="mb-8"><ContingencyDiagram /></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -879,16 +879,17 @@ export default function TariffOptimization() {
 
         {/* ── OUTCOME ── */}
         <motion.div id="outcome" {...fade()} className="mb-28 rounded-2xl p-8 sm:p-12" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-          <Eyebrow>Outcome</Eyebrow>
-          <H2>The app made the date. The backup found a new job.</H2>
+          <Eyebrow>Today</Eyebrow>
+          <H2>Real reviews are running. The app is in UAT.</H2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <p className="text-base leading-relaxed" style={{ color: SOFT }}>
-              <strong style={{ color: "var(--text)" }}>Batch 1 runs through the app.</strong>{" "}From 100
-              meters a month to 32,822, reviewed by group and exception instead of row by row.
+              <strong style={{ color: "var(--text)" }}>The hybrid approach is live.</strong>{" "}PSE&amp;G,
+              NV Energy and DTE reviews were due before the app could be done, so real customer
+              reviews are running on it today. Adding a utility took a rules file, not an app change.
             </p>
             <p className="text-base leading-relaxed" style={{ color: SOFT }}>
-              <strong style={{ color: "var(--text)" }}>The backup now serves DTE and NV Energy,</strong>{" "}two
-              utilities the app doesn&apos;t cover yet. Adding one took a rules file, not an app change.
+              <strong style={{ color: "var(--text)" }}>The app is in user acceptance testing.</strong>{" "}Built
+              for 32,822 meters, up from 100, reviewed by group and exception instead of row by row.
             </p>
           </div>
           <p className="text-xs font-mono uppercase tracking-wider mb-3" style={{ color: "var(--text-muted)" }}>Still open, early November</p>

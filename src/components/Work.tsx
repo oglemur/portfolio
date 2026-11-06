@@ -98,7 +98,7 @@ const featured = {
   stats: [
     { value: "32,822", label: "meters, up from 100" },
     { value: "~2 mo",  label: "two processes merged" },
-    { value: "1 wk",   label: "AI-built backup plan" },
+    { value: "1 wk",   label: "AI-built hybrid approach" },
   ],
 };
 
