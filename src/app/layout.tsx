@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import ImageLightbox from "@/components/ImageLightbox";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen">
         {children}
+        <ImageLightbox />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
